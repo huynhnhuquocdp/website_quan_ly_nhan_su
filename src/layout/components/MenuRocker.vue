@@ -19,6 +19,20 @@
 						<div class="menu-title">Home</div>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/chuc-vu">
+						<div class="parent-icon"><i class="fa-solid fa-home"></i>
+						</div>
+						<div class="menu-title">Chức Vụ</div>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/luong">
+						<div class="parent-icon"><i class="fa-solid fa-money-bill"></i>
+						</div>
+						<div class="menu-title">Lương</div>
+					</a>
+				</li>
 				<!-- VIET -->
 
 				<!-- END_VIET -->

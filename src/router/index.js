@@ -5,7 +5,14 @@ const routes = [
         path : '/',
         component: ()=>import('../layout/wrapper/index.vue')
     },
-
+    {
+        path : '/admin/chuc-vu',
+        component: ()=>import('../components/Admin/ChucVu/index.vue')
+    },
+    {
+        path : '/admin/luong',
+        component: ()=>import('../components/Admin/Luong/index.vue')
+    },
     // <!-- VIET -->
 
     // <!-- END_VIET -->
