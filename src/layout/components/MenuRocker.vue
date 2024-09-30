@@ -23,16 +23,33 @@
 
 				<!-- END_VIET -->
 
-				 <!-- SANG -->
+				<!-- SANG -->
 
 				<!-- END_SANG -->
 
-				 <!-- QUY -->
+				<!-- QUY -->
 
 				<!-- END_QUY -->
 
-				 <!-- DUC -->
-
+				<!-- DUC -->
+				<li class="nav-item">
+					<router-link to="/phong-ban">
+						<a class="nav-link" href="/">
+							<div class="parent-icon"><i class="fa-solid fa-home"></i>
+							</div>
+							<div class="menu-title">Phòng Ban</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/cham-cong">
+						<a class="nav-link" href="/">
+							<div class="parent-icon"><i class="fa-solid fa-home"></i>
+							</div>
+							<div class="menu-title">Chấm Công</div>
+						</a>
+					</router-link>
+				</li>
 				<!-- END_DUC -->
 			</ul>
 		</nav>
