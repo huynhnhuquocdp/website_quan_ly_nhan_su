@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
 
 const routes = [
-  {
-    path: "/",
-    component: () => import("../layout/wrapper/index.vue"),
-  },
+    {
+        path: '/',
+        component: () => import('../layout/wrapper/index.vue')
+    },
 
     // <!-- VIET -->
     {
@@ -26,8 +26,17 @@ const routes = [
 
   // <!-- DUC -->
 
-  // <!-- END_DUC -->
-];
+    // <!-- DUC -->
+    {
+        path: '/phong-ban',
+        component: () => import('../components/PhongBan/index.vue')
+    },
+    {
+        path: '/cham-cong',
+        component: () => import('../components/ChamCong/index.vue')
+    },
+    // <!-- END_DUC -->
+]
 
 const router = createRouter({
   history: createWebHistory(),
