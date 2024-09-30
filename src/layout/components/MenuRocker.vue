@@ -23,15 +23,23 @@
 
 				<!-- END_VIET -->
 
-				 <!-- SANG -->
-
+				<!-- SANG -->
+				<li class="nav-item">
+					<router-link to="/admin/tieu-chi-kpi">
+						<a class="nav-link" href="/admin/tieu-chi-kpi">
+							<div class="parent-icon"><i class="fas fa-chart-line"></i>
+							</div>
+							<div class="menu-title">Tiêu Chí KPI</div>
+						</a>
+					</router-link>
+				</li>
 				<!-- END_SANG -->
 
-				 <!-- QUY -->
+				<!-- QUY -->
 
 				<!-- END_QUY -->
 
-				 <!-- DUC -->
+				<!-- DUC -->
 
 				<!-- END_DUC -->
 			</ul>
