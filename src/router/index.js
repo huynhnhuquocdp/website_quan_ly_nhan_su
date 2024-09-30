@@ -6,9 +6,12 @@ const routes = [
     component: () => import("../layout/wrapper/index.vue"),
   },
 
-  // <!-- VIET -->
-
-  // <!-- END_VIET -->
+    // <!-- VIET -->
+    {
+        path: "/admin/quy-dinh-cho-diem",
+        component: () => import("../components/Admin/QuyDinhChoDiem/index.vue"),
+    },
+    // <!-- END_VIET -->
 
   // <!-- SANG -->
   {
@@ -31,4 +34,4 @@ const router = createRouter({
   routes: routes,
 });
 
-export default router;
+export default router
