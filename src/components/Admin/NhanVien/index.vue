@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center mt-2">
                     <h6><b>DANH SÁCH NHÂN VIÊN</b></h6>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Thêm Mới
@@ -38,13 +38,13 @@
                                     <th class="align-middle text-center">{{ k + 1 }}</th>
                                     <td class="align-middle">{{ v.ho_va_ten }}</td>
                                     <td class="align-middle">{{ v.email }}</td>
-                                    <td class="align-middle">{{ v.ngay_sinh }}</td>
-                                    <td class="align-middle">{{ v.so_dien_thoai }}</td>
-                                    <td class="align-middle text-center">{{ v.dia_chi }}</td>
+                                    <td class="align-middle text-center">{{ v.ngay_sinh }}</td>
+                                    <td class="align-middle text-center">{{ v.so_dien_thoai }}</td>
+                                    <td class="align-middle">{{ v.dia_chi }}</td>
                                     <td class="align-middle text-center">{{ v.id_chuc_vu }}</td>
                                     <td class="align-middle text-center">{{ v.id_phong_ban }}</td>
                                     <td class="align-middle text-center">
-                                        <template v-if="v.is_block == 1">
+                                        <template v-if="v.is_block == 0">
                                             <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hoạt
                                                 Động</button>
                                         </template>
