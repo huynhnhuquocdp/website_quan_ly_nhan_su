@@ -7,16 +7,24 @@ const routes = [
     },
 
     // <!-- VIET -->
-
+    {
+        path: "/admin/quy-dinh-cho-diem",
+        component: () => import("../components/Admin/QuyDinhChoDiem/index.vue"),
+    },
     // <!-- END_VIET -->
 
-    // <!-- SANG -->
+  // <!-- SANG -->
+  {
+    path: "/admin/tieu-chi-kpi",
+    component: () => import("../components/Admin/TieuChiKpi/index.vue"),
+  },
+  // <!-- END_SANG -->
 
-    // <!-- END_SANG -->
+  // <!-- QUY -->
 
-    // <!-- QUY -->
+  // <!-- END_QUY -->
 
-    // <!-- END_QUY -->
+  // <!-- DUC -->
 
     // <!-- DUC -->
     {
@@ -31,8 +39,8 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: routes
-})
+  history: createWebHistory(),
+  routes: routes,
+});
 
 export default router
