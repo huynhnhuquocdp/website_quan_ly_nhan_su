@@ -7,7 +7,10 @@ const routes = [
     },
 
     // <!-- VIET -->
-
+    {
+        path: "/admin/quy-dinh-cho-diem",
+        component: () => import("../components/Admin/QuyDinhChoDiem/index.vue"),
+    },
     // <!-- END_VIET -->
 
     // <!-- SANG -->
