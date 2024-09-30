@@ -86,7 +86,19 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Bạn có chắc chắn muốn xóa chức vụ: này không?
+                            <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                </div>
+                                <div class="ms-1">
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa chức vụ <b>xxx</b> này chứ
+                                        !!!</h6>
+                                    <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
+                                        khi ấn xác nhận
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>

@@ -13,31 +13,34 @@
 		<nav class="navbar navbar-expand-xl w-100">
 			<ul class="navbar-nav justify-content-start flex-grow-1 gap-1">
 				<li class="nav-item">
-					<a class="nav-link" href="/">
-						<div class="parent-icon"><i class="fa-solid fa-home"></i>
-						</div>
-						<div class="menu-title">Home</div>
-					</a>
+					<router-link to="/">
+						<a class="nav-link" href="/">
+							<div class="parent-icon"><i class="fa-solid fa-home"></i>
+							</div>
+							<div class="menu-title">Home</div>
+						</a>
+					</router-link>
+
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/admin/chuc-vu">
-						<div class="parent-icon"><i class="fa-solid fa-home"></i>
-						</div>
-						<div class="menu-title">Chức Vụ</div>
-					</a>
+					<router-link to="/admin/nhan-vien">
+						<a class="nav-link" href="/admin/nhan-vien">
+							<div class="parent-icon"><i class="fa-solid fa-user"></i>
+							</div>
+							<div class="menu-title">Nhân Viên</div>
+						</a>
+					</router-link>
+
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/admin/luong">
-						<div class="parent-icon"><i class="fa-solid fa-money-bill"></i>
-						</div>
-						<div class="menu-title">Lương</div>
-					</a>
+					<router-link to="/admin/luong">
+						<a class="nav-link" href="/admin/luong">
+							<div class="parent-icon"><i class="fa-solid fa-money-bill"></i>
+							</div>
+							<div class="menu-title">Lương</div>
+						</a>
+					</router-link>
 				</li>
-				<!-- VIET -->
-
-				<!-- END_VIET -->
-
-				<!-- SANG -->
 				<li class="nav-item">
 					<router-link to="/admin/tieu-chi-kpi">
 						<a class="nav-link" href="/admin/tieu-chi-kpi">
@@ -47,32 +50,42 @@
 						</a>
 					</router-link>
 				</li>
-				<!-- END_SANG -->
-
-				<!-- QUY -->
-
-				<!-- END_QUY -->
-
-				<!-- DUC -->
 				<li class="nav-item">
-					<router-link to="/phong-ban">
-						<a class="nav-link" href="/">
-							<div class="parent-icon"><i class="fa-solid fa-home"></i>
+					<router-link to="/admin/quy-dinh-cho-diem">
+						<a class="nav-link" href="/admin/quy-dinh-cho-diem">
+							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
+							</div>
+							<div class="menu-title">Quy Định Cho Điểm</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/admin/chuc-vu">
+						<a class="nav-link" href="/admin/chuc-vu">
+							<div class="parent-icon"><i class="fa-solid fa-user-tie"></i>
+							</div>
+							<div class="menu-title">Chức Vụ</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/admin/phong-ban">
+						<a class="nav-link" href="/admin/phong-ban">
+							<div class="parent-icon"><i class="fa-solid fa-person-shelter"></i>
 							</div>
 							<div class="menu-title">Phòng Ban</div>
 						</a>
 					</router-link>
 				</li>
 				<li class="nav-item">
-					<router-link to="/cham-cong">
-						<a class="nav-link" href="/">
-							<div class="parent-icon"><i class="fa-solid fa-home"></i>
+					<router-link to="/admin/cham-cong">
+						<a class="nav-link" href="/admin/cham-cong">
+							<div class="parent-icon"><i class="fa-solid fa-business-time"></i>
 							</div>
-							<div class="menu-title">Chấm Công</div>
+							<div class="menu-title">Lịch Sử Chấm Công</div>
 						</a>
 					</router-link>
 				</li>
-				<!-- END_DUC -->
 			</ul>
 		</nav>
 	</div>

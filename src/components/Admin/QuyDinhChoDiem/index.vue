@@ -160,8 +160,18 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger" role="alert">
-                            Bạn có chắc muốn xóa <b class="text-danger">QD001</b> này không?
+                        <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                </div>
+                                <div class="ms-1">
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa quy định cho điểm <b>xxx</b> này chứ
+                                        !!!</h6>
+                                    <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
+                                        khi ấn xác nhận
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

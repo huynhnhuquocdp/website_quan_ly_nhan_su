@@ -6,6 +6,15 @@ const routes = [
         component: () => import('../layout/wrapper/index.vue')
     },
     {
+        path : '/admin/dang-nhap',
+        component: ()=>import('../components/Admin/DangNhap/index.vue'),
+        meta: { layout: "blank" },
+    },
+    {
+        path : '/admin/nhan-vien',
+        component: ()=>import('../components/Admin/NhanVien/index.vue')
+    },
+    {
         path : '/admin/chuc-vu',
         component: ()=>import('../components/Admin/ChucVu/index.vue')
     },
@@ -13,36 +22,22 @@ const routes = [
         path : '/admin/luong',
         component: ()=>import('../components/Admin/Luong/index.vue')
     },
-    // <!-- VIET -->
     {
         path: "/admin/quy-dinh-cho-diem",
         component: () => import("../components/Admin/QuyDinhChoDiem/index.vue"),
     },
-    // <!-- END_VIET -->
-
-  // <!-- SANG -->
-  {
-    path: "/admin/tieu-chi-kpi",
-    component: () => import("../components/Admin/TieuChiKpi/index.vue"),
-  },
-  // <!-- END_SANG -->
-
-  // <!-- QUY -->
-
-  // <!-- END_QUY -->
-
-  // <!-- DUC -->
-
-    // <!-- DUC -->
     {
-        path: '/phong-ban',
-        component: () => import('../components/PhongBan/index.vue')
+        path: "/admin/tieu-chi-kpi",
+        component: () => import("../components/Admin/TieuChiKpi/index.vue"),
     },
     {
-        path: '/cham-cong',
-        component: () => import('../components/ChamCong/index.vue')
+        path: '/admin/phong-ban',
+        component: () => import('../components/Admin/PhongBan/index.vue')
     },
-    // <!-- END_DUC -->
+    {
+        path: '/admin/cham-cong',
+        component: () => import('../components/Admin/ChamCong/index.vue')
+    },
 ]
 
 const router = createRouter({
