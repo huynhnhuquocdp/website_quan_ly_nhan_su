@@ -8,30 +8,34 @@
                 <div class="card-body">
                     <div class="mb-2">
                         <label class="form-label">Mã Số</label>
-                        <input type="text" class="form-control" placeholder="Vd: QD001" />
+                        <input v-model="create_quy_dinh_cho_diem.ma_so" type="text" class="form-control"
+                            placeholder="Vd: QD001" />
                     </div>
                     <div class="mb-2">
                         <label class="form-label">Số Điểm</label>
-                        <input type="number" class="form-control" placeholder="Vd: 10" />
+                        <input v-model="create_quy_dinh_cho_diem.so_diem" type="number" class="form-control"
+                            placeholder="Vd: 10" />
                     </div>
                     <div class="mb-2">
                         <label class="form-label">Nội Dung</label>
-                        <input type="text" class="form-control" placeholder="Vd: Điểm cho công việc đúng hạn" />
+                        <input v-model="create_quy_dinh_cho_diem.noi_dung" type="text" class="form-control"
+                            placeholder="Vd: Điểm cho công việc đúng hạn" />
                     </div>
                     <div class="mb-2">
                         <label class="form-label">Ghi Chú</label>
-                        <textarea class="form-control" cols="30" rows="2"></textarea>
+                        <textarea v-model="create_quy_dinh_cho_diem.ghi_chu" class="form-control" cols="30"
+                            rows="2"></textarea>
                     </div>
                     <div class="mb-2">
                         <label class="form-label">Loại Điểm</label>
-                        <select class="form-control">
-                            <option value="Thưởng">Thưởng</option>
-                            <option value="Phạt">Phạt</option>
+                        <select v-model="create_quy_dinh_cho_diem.loai_diem" class="form-control">
+                            <option value="0">Thưởng</option>
+                            <option value="1">Phạt</option>
                         </select>
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    <button class="btn btn-primary">Thêm Mới</button>
+                    <button @click="createQuyDinhChoDiem()" class="btn btn-primary">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -55,50 +59,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="align-middle text-center">1</th>
-                                    <td class="align-middle">QD001</td>
-                                    <td class="align-middle text-center">10</td>
-                                    <td class="align-middle text-nowrap">
-                                        Điểm thưởng cho hoàn thành công việc đúng hạn
-                                    </td>
-                                    <td class="align-middle text-nowrap">
-                                        Chỉ áp dụng cho nhân viên được quản lý đánh giá
-                                    </td>
-                                    <td class="align-middle text-center">Thưởng</td>
-                                    <td class="align-middle text-center">
-                                        <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#capnhatMGG">
-                                            Cập nhật
-                                        </button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#delModal">
-                                            Xóa
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle text-center">2</th>
-                                    <td class="align-middle">QD002</td>
-                                    <td class="align-middle text-center">10</td>
-                                    <td class="align-middle text-nowrap">
-                                        Điểm phạt cho hoàn thành công việc không đúng hạn
-                                    </td>
-                                    <td class="align-middle text-nowrap">
-                                        Chỉ áp dụng cho nhân viên được quản lý đánh giá
-                                    </td>
-                                    <td class="align-middle text-center">Phạt</td>
-                                    <td class="align-middle text-center">
-                                        <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#capnhatMGG">
-                                            Cập nhật
-                                        </button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#delModal">
-                                            Xóa
-                                        </button>
-                                    </td>
-                                </tr>
+                                <template v-for="(v, k) in list_quy_dinh_cho_diem" :key="k">
+                                    <tr>
+                                        <th class="align-middle text-center">{{ k + 1 }}</th>
+                                        <td class="align-middle">{{ v.ma_so }}</td>
+                                        <td class="align-middle text-center">{{ v.so_diem }}</td>
+                                        <td class="align-middle text-nowrap">
+                                            {{ v.noi_dung }}
+                                        </td>
+                                        <td class="align-middle text-nowrap">
+                                            {{ v.ghi_chu }}
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <template v-if="v.loai_diem == 0">
+                                                Thưởng
+                                            </template>
+                                            <template v-else>
+                                                Phạt
+                                            </template>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <button class="btn btn-primary me-2" data-bs-toggle="modal"
+                                                v-on:click="Object.assign(edit_quy_dinh_cho_diem, v)"
+                                                data-bs-target="#capnhatMGG">
+                                                Cập nhật
+                                            </button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                v-on:click="Object.assign(delete_quy_dinh_cho_diem, v)"
+                                                data-bs-target="#delModal">
+                                                Xóa
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
@@ -117,25 +110,29 @@
                     <div class="modal-body">
                         <div class="mb-2">
                             <label class="form-label">Mã Số</label>
-                            <input type="text" class="form-control" placeholder="Vd: QD001" />
+                            <input v-model="edit_quy_dinh_cho_diem.ma_so" type="text" class="form-control"
+                                placeholder="Vd: QD001" />
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Số Điểm</label>
-                            <input type="number" class="form-control" placeholder="Vd: 10" />
+                            <input v-model="edit_quy_dinh_cho_diem.so_diem" type="number" class="form-control"
+                                placeholder="Vd: 10" />
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Nội Dung</label>
-                            <input type="text" class="form-control" placeholder="Vd: Điểm cho công việc đúng hạn" />
+                            <input v-model="edit_quy_dinh_cho_diem.noi_dung" type="text" class="form-control"
+                                placeholder="Vd: Điểm cho công việc đúng hạn" />
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Ghi Chú</label>
-                            <textarea class="form-control" cols="30" rows="2"></textarea>
+                            <textarea v-model="edit_quy_dinh_cho_diem.ghi_chu" class="form-control" cols="30"
+                                rows="2"></textarea>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Loại Điểm</label>
-                            <select class="form-control">
-                                <option value="1">Thưởng</option>
-                                <option value="0">Phạt</option>
+                            <select v-model="edit_quy_dinh_cho_diem.loai_diem" class="form-control">
+                                <option value="0">Thưởng</option>
+                                <option value="1">Phạt</option>
                             </select>
                         </div>
                     </div>
@@ -143,7 +140,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <button @click="capNhatQuyDinhChoDiem()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
                             Cập nhật
                         </button>
                     </div>
@@ -165,7 +162,7 @@
                                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                                 </div>
                                 <div class="ms-1">
-                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa quy định cho điểm <b>xxx</b> này chứ
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa quy định cho điểm <b>{{ delete_quy_dinh_cho_diem.ma_so }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
                                         khi ấn xác nhận
@@ -178,7 +175,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <button @click="xoaQuyDinhChoDiem()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                             Xóa
                         </button>
                     </div>
@@ -188,6 +185,62 @@
     </div>
 </template>
 <script>
-export default {};
+import axios from 'axios';
+export default {
+    data() {
+        return {
+            create_quy_dinh_cho_diem: {},
+            edit_quy_dinh_cho_diem: {},
+            delete_quy_dinh_cho_diem: {},
+            list_quy_dinh_cho_diem: [],
+        }
+
+    },
+    mounted() {
+        this.loadQuyDinhChoDiem();
+    },
+    methods: {
+        loadQuyDinhChoDiem() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data')
+                .then((res) => {
+                    this.list_quy_dinh_cho_diem = res.data.data;
+                })
+        },
+        createQuyDinhChoDiem() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/create', this.create_quy_dinh_cho_diem)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadQuyDinhChoDiem();
+                        this.create_quy_dinh_cho_diem = {};
+                    }
+                })
+        },
+        capNhatQuyDinhChoDiem() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/update', this.edit_quy_dinh_cho_diem)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadQuyDinhChoDiem();
+                    };
+                })
+
+        },
+        xoaQuyDinhChoDiem() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/delete', this.delete_quy_dinh_cho_diem)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadQuyDinhChoDiem();
+                    };
+                })
+
+        },
+    }
+}
 </script>
 <style></style>

@@ -8,26 +8,26 @@
                 <div class="card-body">
                     <div class="mb-2">
                         <label class="mb-1">Tên Tiêu Chí</label>
-                        <input type="text" class="form-control">
+                        <input v-model="create_tieu_chi_kpi.ten_tieu_chi" type="text" class="form-control">
                     </div>
                     <div class="mb-2">
                         <label class="mb-1">Điểm</label>
-                        <input type="number" class="form-control">
+                        <input v-model="create_tieu_chi_kpi.diem" type="number" class="form-control">
                     </div>
                     <div class="mb-2">
                         <label class="mb-1">Mô Tả</label>
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea v-model="create_tieu_chi_kpi.mo_ta" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="mb-2">
                         <label class="mb-1">Tình Trạng</label>
-                        <select class="form-select">
+                        <select v-model="create_tieu_chi_kpi.tinh_trang" class="form-select">
                             <option value="1">Hiển Thị</option>
                             <option value="0">Tạm Dừng</option>
                         </select>
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    <button type="button" class="btn btn-primary">Thêm Mới</button>
+                    <button @click="createTieuChiKPI()" type="button" class="btn btn-primary">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -50,22 +50,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class='align-middle text-nowrap text-center'>1</th>
-                                    <td class='align-middle text-nowrap'>Hoàn thành dự án</td>
-                                    <td class='align-middle text-nowrap text-end'>5</td>
-                                    <td class='align-middle text-nowrap'>Đã hoàn thành dự án được giao trước thời gian
-                                        quy định</td>
-                                    <td class='align-middle text-nowrap text-center'>
-                                        <button class="btn btn-success">Hiển Thị</button>
-                                    </td>
-                                    <td class='align-middle text-nowrap text-center'>
-                                        <button class="btn btn-primary me-2" data-bs-toggle='modal'
-                                            data-bs-target='#updateModal'>Cập Nhật</button>
-                                        <button class="btn btn-danger" data-bs-toggle='modal'
-                                            data-bs-target='#deleteModal'>Xóa</button>
-                                    </td>
-                                </tr>
+                                <template v-for="(v, k) in list_tieu_chi_kpi" :key="k">
+                                    <tr>
+                                        <th class='align-middle text-nowrap text-center'>{{ k + 1 }}</th>
+                                        <td class='align-middle text-nowrap'>{{ v.ten_tieu_chi }}</td>
+                                        <td class='align-middle text-nowrap text-center'>{{ v.diem }}</td>
+                                        <td class='align-middle text-nowrap'>{{ v.mo_ta }}</td>
+                                        <td class="align-middle text-nowrap text-center">
+                                            <template v-if="v.tinh_trang == 1">
+                                                <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hiển
+                                                    Thị</button>
+                                            </template>
+                                            <template v-else>
+                                                <button v-on:click="changeStatus(v)" class="btn btn-danger w-100">Tạm
+                                                    Tắt</button>
+                                            </template>
+                                        </td>
+                                        <td class='align-middle text-nowrap text-center'>
+                                            <button class="btn btn-primary me-2" data-bs-toggle='modal'
+                                                v-on:click="Object.assign(edit_tieu_chi_kpi, v)"
+                                                data-bs-target='#updateModal'>Cập Nhật</button>
+                                            <button class="btn btn-danger" data-bs-toggle='modal'
+                                                v-on:click="Object.assign(delete_tieu_chi_kpi, v)"
+                                                data-bs-target='#deleteModal'>Xóa</button>
+                                        </td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
@@ -83,20 +93,19 @@
                     <div class='modal-body'>
                         <div class="mb-2">
                             <label class="mb-1">Tên Tiêu Chí</label>
-                            <input type="text" class="form-control" value="Hoàn thành dự án">
+                            <input v-model="edit_tieu_chi_kpi.ten_tieu_chi" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
                             <label class="mb-1">Điểm</label>
-                            <input type="number" class="form-control" value="5">
+                            <input v-model="edit_tieu_chi_kpi.diem" type="number" class="form-control">
                         </div>
                         <div class="mb-2">
                             <label class="mb-1">Mô Tả</label>
-                            <textarea class="form-control" rows="3"
-                                placeholder="Đã hoàn thành dự án được giao trước thời gian quy định"></textarea>
+                            <textarea v-model="edit_tieu_chi_kpi.mo_ta" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="mb-2">
                             <label class="mb-1">Tình Trạng</label>
-                            <select class="form-select">
+                            <select v-model="edit_tieu_chi_kpi.tinh_trang" class="form-select">
                                 <option value="1">Hiển Thị</option>
                                 <option value="0">Tạm Dừng</option>
                             </select>
@@ -104,7 +113,7 @@
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Đóng</button>
-                        <button type='button' class='btn btn-primary' data-bs-dismiss='modal'>Xác Nhận</button>
+                        <button @click="capNhatTieuChiKPI()" type='button' class='btn btn-primary' data-bs-dismiss='modal'>Xác Nhận</button>
                     </div>
                 </div>
             </div>
@@ -123,7 +132,7 @@
                                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                                 </div>
                                 <div class="ms-1">
-                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa tiêu chí <b>xxx</b> này chứ
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa tiêu chí <b>{{ delete_tieu_chi_kpi.ten_tieu_chi }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
                                         khi ấn xác nhận
@@ -134,7 +143,7 @@
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Đóng</button>
-                        <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Xác Nhận</button>
+                        <button @click="xoaTieuChiKPI()" type='button' class='btn btn-danger' data-bs-dismiss='modal'>Xác Nhận</button>
                     </div>
                 </div>
             </div>
@@ -142,8 +151,72 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
+    data() {
+        return {
+            create_tieu_chi_kpi: {},
+            edit_tieu_chi_kpi: {},
+            delete_tieu_chi_kpi: {},
+            list_tieu_chi_kpi: [],
+        }
 
+    },
+    mounted() {
+        this.loadTieuChiKPI();
+    },
+    methods: {
+        loadTieuChiKPI() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/data')
+                .then((res) => {
+                    this.list_tieu_chi_kpi = res.data.data;
+                })
+        },
+        createTieuChiKPI() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/create', this.create_tieu_chi_kpi)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadTieuChiKPI();
+                        this.create_tieu_chi_kpi = {};
+                    }
+                })
+        },
+        capNhatTieuChiKPI() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/update', this.edit_tieu_chi_kpi)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadTieuChiKPI();
+                    };
+                })
+
+        },
+        xoaTieuChiKPI() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/delete', this.delete_tieu_chi_kpi)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadTieuChiKPI();
+                    };
+                })
+
+        },
+        changeStatus(value) {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/change-status', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadTieuChiKPI();
+                    }
+                })
+        }
+    }
 }
 </script>
 <style></style>

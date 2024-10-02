@@ -17,13 +17,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class='align-middle text-center'>
-                                <th class='align-middle'>1</th>
-                                <td class='align-middle'>Hoàng Việt ĐỨc</td>
-                                <td class='align-middle'>30/09/2024</td>
-                                <td class='align-middle'>08:00 </td>
-                                <td class='align-middle'>11:30</td>
-                            </tr>
+                            <template v-for="(v, k) in list_cham_cong" :key="k">
+                                <tr class='align-middle text-center'>
+                                    <th class='align-middle'>{{ k + 1 }}</th>
+                                    <td class='align-middle'>{{ v.ho_va_ten }}</td>
+                                    <td class='align-middle'>{{ v.ngay_lam_viec }}</td>
+                                    <td class='align-middle'>{{ v.gio_vao }} </td>
+                                    <td class='align-middle'>{{ v.gio_ra }}</td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -32,8 +34,26 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
+    data() {
+        return {
+            list_cham_cong: [],
+        }
 
+    },
+    mounted() {
+        this.loadChamCong();
+    },
+    methods: {
+        loadChamCong() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/cham-cong/data')
+                .then((res) => {
+                    this.list_cham_cong = res.data.data;
+                })
+        },
+    }
 }
 </script>
 <style></style>

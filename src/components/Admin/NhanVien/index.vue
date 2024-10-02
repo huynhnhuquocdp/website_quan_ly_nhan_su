@@ -41,8 +41,8 @@
                                     <td class="align-middle text-center">{{ v.ngay_sinh }}</td>
                                     <td class="align-middle text-center">{{ v.so_dien_thoai }}</td>
                                     <td class="align-middle">{{ v.dia_chi }}</td>
-                                    <td class="align-middle text-center">{{ v.id_chuc_vu }}</td>
-                                    <td class="align-middle text-center">{{ v.id_phong_ban }}</td>
+                                    <td class="align-middle text-center">{{ v.ten_chuc_vu }}</td>
+                                    <td class="align-middle text-center">{{ v.ten_phong_ban }}</td>
                                     <td class="align-middle text-center">
                                         <template v-if="v.is_block == 0">
                                             <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hoạt
@@ -181,10 +181,6 @@
                             <input v-model="edit_nhan_vien.so_dien_thoai" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Password</label>
-                            <input v-model="edit_nhan_vien.password" type="password" class="form-control">
-                        </div>
-                        <div class="mb-2">
                             <label class="form-lable">Địa Chỉ</label>
                             <input v-model="edit_nhan_vien.dia_chi" type="text" class="form-control">
                         </div>
@@ -253,14 +249,14 @@ export default {
         },
         loadChucVu() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/chuc-vu/data')
+                .get('http://127.0.0.1:8000/api/admin/chuc-vu/data-open')
                 .then((res) => {
                     this.list_chuc_vu = res.data.data;
                 })
         },
         loadPhongBan() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/phong-ban/data')
+                .get('http://127.0.0.1:8000/api/admin/phong-ban/data-open')
                 .then((res) => {
                     this.list_phong_ban = res.data.data;
                 })

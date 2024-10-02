@@ -19,44 +19,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                         
+                            <template v-for="(v, k) in list_luong" :key="k">
                                 <tr>
-                                    <th class="text-center align-middle ">1</th>
-                                    <td class="align-middle ">Nguyễn Văn A</td>
-                                    <td class="align-middle ">30</td>
+                                    <th class="text-center align-middle ">{{ k + 1 }}</th>
+                                    <td class="align-middle ">{{ v.ho_va_ten }}</td>
+                                    <td class="text-center align-middle ">{{ v.so_ngay_cong }}</td>
 
-                                    <td class="align-middle ">500.000đ</td>
+                                    <td class="align-middle text-end">{{ v.thuong }}đ</td>
 
-                                    <td class="align-middle ">300.000đ</td>
+                                    <td class="align-middle text-end">{{ v.phat }}đ</td>
 
-                                    <td class="align-middle ">23.200.000đ</td>
+                                    <td class="align-middle text-end">{{ v.tong_luong }}đ</td>
 
                                 </tr>
-                                <tr>
-                                    <th class="text-center align-middle ">2</th>
-                                    <td class="align-middle ">Nguyễn Văn B</td>
-                                    <td class="align-middle ">25</td>
-
-                                    <td class="align-middle ">100.000đ</td>
-
-                                    <td class="align-middle ">0đ</td>
-
-                                    <td class="align-middle ">18.100.000đ</td>
-
-                                </tr>
-                                <tr>
-                                    <th class="text-center align-middle ">1</th>
-                                    <td class="align-middle ">Nguyễn Văn C</td>
-                                    <td class="align-middle ">28</td>
-
-                                    <td class="align-middle ">400.000đ</td>
-
-                                    <td class="align-middle ">0đ</td>
-
-                                    <td class="align-middle ">21.400.000đ</td>
-
-                                </tr>
-                           
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -66,8 +42,26 @@
 </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
-    
+    data() {
+        return {
+            list_luong: [],
+        }
+
+    },
+    mounted() {
+        this.loadLuong();
+    },
+    methods: {
+        loadLuong() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/luong/data')
+                .then((res) => {
+                    this.list_luong = res.data.data;
+                })
+        },
+    }
 }
 </script>
 <style >
