@@ -20,7 +20,6 @@
 							<div class="menu-title">Home</div>
 						</a>
 					</router-link>
-
 				</li>
 				<li class="nav-item">
 					<router-link to="/admin/nhan-vien">
@@ -31,33 +30,6 @@
 						</a>
 					</router-link>
 
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/luong">
-						<a class="nav-link" href="/admin/luong">
-							<div class="parent-icon"><i class="fa-solid fa-money-bill"></i>
-							</div>
-							<div class="menu-title">Lương</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/tieu-chi-kpi">
-						<a class="nav-link" href="/admin/tieu-chi-kpi">
-							<div class="parent-icon"><i class="fas fa-chart-line"></i>
-							</div>
-							<div class="menu-title">Tiêu Chí KPI</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/quy-dinh-cho-diem">
-						<a class="nav-link" href="/admin/quy-dinh-cho-diem">
-							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
-							</div>
-							<div class="menu-title">Quy Định Cho Điểm</div>
-						</a>
-					</router-link>
 				</li>
 				<li class="nav-item">
 					<router-link to="/admin/chuc-vu">
@@ -74,15 +46,6 @@
 							<div class="parent-icon"><i class="fa-solid fa-person-shelter"></i>
 							</div>
 							<div class="menu-title">Phòng Ban</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/cham-cong">
-						<a class="nav-link" href="/admin/cham-cong">
-							<div class="parent-icon"><i class="fa-solid fa-business-time"></i>
-							</div>
-							<div class="menu-title">Lịch Sử Chấm Công</div>
 						</a>
 					</router-link>
 				</li>
