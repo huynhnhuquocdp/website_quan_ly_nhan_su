@@ -13,27 +13,42 @@
 		<nav class="navbar navbar-expand-xl w-100">
 			<ul class="navbar-nav justify-content-start flex-grow-1 gap-1">
 				<li class="nav-item">
-					<a class="nav-link" href="/">
-						<div class="parent-icon"><i class="fa-solid fa-home"></i>
-						</div>
-						<div class="menu-title">Home</div>
-					</a>
+					<router-link to="/">
+						<a class="nav-link" href="/">
+							<div class="parent-icon"><i class="fa-solid fa-home"></i>
+							</div>
+							<div class="menu-title">Home</div>
+						</a>
+					</router-link>
 				</li>
-				<!-- VIET -->
+				<li class="nav-item">
+					<router-link to="/admin/nhan-vien">
+						<a class="nav-link" href="/admin/nhan-vien">
+							<div class="parent-icon"><i class="fa-solid fa-user"></i>
+							</div>
+							<div class="menu-title">Nhân Viên</div>
+						</a>
+					</router-link>
 
-				<!-- END_VIET -->
-
-				 <!-- SANG -->
-
-				<!-- END_SANG -->
-
-				 <!-- QUY -->
-
-				<!-- END_QUY -->
-
-				 <!-- DUC -->
-
-				<!-- END_DUC -->
+				</li>
+				<li class="nav-item">
+					<router-link to="/admin/chuc-vu">
+						<a class="nav-link" href="/admin/chuc-vu">
+							<div class="parent-icon"><i class="fa-solid fa-user-tie"></i>
+							</div>
+							<div class="menu-title">Chức Vụ</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/admin/phong-ban">
+						<a class="nav-link" href="/admin/phong-ban">
+							<div class="parent-icon"><i class="fa-solid fa-person-shelter"></i>
+							</div>
+							<div class="menu-title">Phòng Ban</div>
+						</a>
+					</router-link>
+				</li>
 			</ul>
 		</nav>
 	</div>
