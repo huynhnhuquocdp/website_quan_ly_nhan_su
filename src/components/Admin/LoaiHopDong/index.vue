@@ -44,10 +44,8 @@
                                     <tr>
                                         <th class="text-center align-middle text-nowrap">{{ k + 1 }}</th>
                                         <td class="align-middle text-nowrap">{{ v.ten_hop_dong }}</td>
-                                        <td class="align-middle text-nowrap text-center">
-                                            <i v-on:click="noi_dung_hop_dong = v.noi_dung"
-                                                data-bs-toggle="modal" data-bs-target="#noi_dung"
-                                                class="fa-solid fa-file-contract fa-xl"></i>
+                                        <td class="align-middle text-nowrap text-center" data-bs-toggle="modal" data-bs-target="#noi_dung">
+                                            <i v-on:click="noi_dung_hop_dong = v.noi_dung" class="fa-solid fa-file-contract fa-xl"></i>
                                         </td>
                                         <td class="align-middle text-nowrap text-center">
                                             <template v-if="v.tinh_trang == 1">
@@ -144,7 +142,7 @@
 
                 <div class="modal fade" id="noi_dung" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Nội Dung Hợp Đồng</h5>
