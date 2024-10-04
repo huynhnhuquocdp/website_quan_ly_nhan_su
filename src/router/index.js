@@ -19,10 +19,6 @@ const routes = [
         component: ()=>import('../components/Admin/ChucVu/index.vue')
     },
     {
-        path : '/admin/luong',
-        component: ()=>import('../components/Admin/Luong/index.vue')
-    },
-    {
         path: "/admin/quy-dinh-cho-diem",
         component: () => import("../components/Admin/QuyDinhChoDiem/index.vue"),
     },
@@ -33,10 +29,6 @@ const routes = [
     {
         path: '/admin/phong-ban',
         component: () => import('../components/Admin/PhongBan/index.vue')
-    },
-    {
-        path: '/admin/cham-cong',
-        component: () => import('../components/Admin/ChamCong/index.vue')
     },
 ]
 

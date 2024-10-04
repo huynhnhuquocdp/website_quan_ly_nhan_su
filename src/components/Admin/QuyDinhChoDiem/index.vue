@@ -33,6 +33,13 @@
                             <option value="1">Phạt</option>
                         </select>
                     </div>
+                    <div class="mb-2">
+                            <label class="form-label">Tình Trạng</label>
+                            <select v-model="create_quy_dinh_cho_diem.tinh_trang" class="form-control">
+                                <option value="0">Tạm Tắt</option>
+                                <option value="1">Hiển Thị</option>
+                            </select>
+                        </div>
                 </div>
                 <div class="card-footer text-end">
                     <button @click="createQuyDinhChoDiem()" class="btn btn-primary">Thêm Mới</button>
@@ -55,6 +62,7 @@
                                     <th class="text-center align-middle">Nội Dung</th>
                                     <th class="text-center align-middle">Ghi Chú</th>
                                     <th class="text-center align-middle">Loại Điểm</th>
+                                    <th class="text-center align-middle">Tình Trạng</th>
                                     <th class="text-center align-middle">Action</th>
                                 </tr>
                             </thead>
@@ -76,6 +84,16 @@
                                             </template>
                                             <template v-else>
                                                 Phạt
+                                            </template>
+                                        </td>
+                                        <td class="align-middle text-nowrap text-center">
+                                            <template v-if="v.tinh_trang == 1">
+                                                <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hiển
+                                                    Thị</button>
+                                            </template>
+                                            <template v-else>
+                                                <button v-on:click="changeStatus(v)" class="btn btn-danger w-100">Tạm
+                                                    Tắt</button>
                                             </template>
                                         </td>
                                         <td class="align-middle text-center">
@@ -133,6 +151,13 @@
                             <select v-model="edit_quy_dinh_cho_diem.loai_diem" class="form-control">
                                 <option value="0">Thưởng</option>
                                 <option value="1">Phạt</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Tình Trạng</label>
+                            <select v-model="edit_quy_dinh_cho_diem.tinh_trang" class="form-control">
+                                <option value="0">Tạm Tắt</option>
+                                <option value="1">Hiển Thị</option>
                             </select>
                         </div>
                     </div>
@@ -240,6 +265,16 @@ export default {
                 })
 
         },
+        changeStatus(value) {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/change-status', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadQuyDinhChoDiem();
+                    }
+                })
+        }
     }
 }
 </script>
