@@ -86,6 +86,15 @@
 						</a>
 					</router-link>
 				</li>
+				<li class="nav-item">
+					<router-link to="/admin/loai-hop-dong">
+						<a class="nav-link" href="/admin/loai-hop-dong">
+							<div class="parent-icon"><i class="fa-solid fa-file-contract"></i>
+							</div>
+							<div class="menu-title">Loại Hợp Đồng</div>
+						</a>
+					</router-link>
+				</li>
 			</ul>
 		</nav>
 	</div>
