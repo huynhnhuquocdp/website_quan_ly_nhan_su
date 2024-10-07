@@ -25,6 +25,14 @@ const routes = [
         path: '/admin/phong-ban',
         component: () => import('../components/Admin/PhongBan/index.vue')
     },
+    {
+        path: '/admin/chi-tiet-hop-dong',
+        component: () => import('../components/Admin/ChiTietHopDong/index.vue')
+    },
+    {
+        path: '/admin/loai-hop-dong',
+        component: () => import('../components/Admin/LoaiHopDong/index.vue')
+    },
 ]
 
 const router = createRouter({
