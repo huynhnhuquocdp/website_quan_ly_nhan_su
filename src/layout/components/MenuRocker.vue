@@ -20,7 +20,6 @@
 							<div class="menu-title">Home</div>
 						</a>
 					</router-link>
-
 				</li>
 				<li class="nav-item">
 					<router-link to="/admin/nhan-vien">
@@ -31,24 +30,6 @@
 						</a>
 					</router-link>
 
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/tieu-chi-kpi">
-						<a class="nav-link" href="/admin/tieu-chi-kpi">
-							<div class="parent-icon"><i class="fas fa-chart-line"></i>
-							</div>
-							<div class="menu-title">Tiêu Chí KPI</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/quy-dinh-cho-diem">
-						<a class="nav-link" href="/admin/quy-dinh-cho-diem">
-							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
-							</div>
-							<div class="menu-title">Quy Định Cho Điểm</div>
-						</a>
-					</router-link>
 				</li>
 				<li class="nav-item">
 					<router-link to="/admin/chuc-vu">
@@ -65,24 +46,6 @@
 							<div class="parent-icon"><i class="fa-solid fa-person-shelter"></i>
 							</div>
 							<div class="menu-title">Phòng Ban</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/loai-hop-dong">
-						<a class="nav-link" href="/admin/loai-hop-dong">
-							<div class="parent-icon"><i class="fa-solid fa-file-contract"></i>
-							</div>
-							<div class="menu-title">Loại Hợp Đồng</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/chi-tiet-hop-dong">
-						<a class="nav-link" href="/admin/chi-tiet-hop-dong">
-							<div class="parent-icon"><i class="fa-solid fa-file-signature"></i>
-							</div>
-							<div class="menu-title">Hợp Đồng Nhân Viên</div>
 						</a>
 					</router-link>
 				</li>
