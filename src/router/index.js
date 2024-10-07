@@ -33,6 +33,14 @@ const routes = [
         path: '/admin/loai-hop-dong',
         component: () => import('../components/Admin/LoaiHopDong/index.vue')
     },
+    {
+        path: '/admin/cham-cong',
+        component: () => import('../components/Admin/ChamCong/index.vue')
+    },
+    {
+        path: '/admin/kpi-nhan-vien',
+        component: () => import('../components/Admin/KPINhanVien/index.vue')
+    },
 ]
 
 const router = createRouter({

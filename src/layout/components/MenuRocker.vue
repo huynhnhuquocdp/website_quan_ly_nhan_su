@@ -59,6 +59,15 @@
 					</router-link>
 				</li>
 				<li class="nav-item">
+					<router-link to="/admin/kpi-nhan-vien">
+						<a class="nav-link" href="/admin/kpi-nhan-vien">
+							<div class="parent-icon"><i class="fa-solid fa-magnifying-glass-chart"></i>
+							</div>
+							<div class="menu-title">KPI Nhân Viên</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
 					<router-link to="/admin/quy-dinh-cho-diem">
 						<a class="nav-link" href="/admin/quy-dinh-cho-diem">
 							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
@@ -86,7 +95,15 @@
 						</a>
 					</router-link>
 				</li>
-
+				<li class="nav-item">
+					<router-link to="/admin/cham-cong">
+						<a class="nav-link" href="/admin/cham-cong">
+							<div class="parent-icon"><i class="fa-solid fa-calendar-plus"></i>
+							</div>
+							<div class="menu-title">Chấm Công</div>
+						</a>
+					</router-link>
+				</li>
 			</ul>
 		</nav>
 	</div>
