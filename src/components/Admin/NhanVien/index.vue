@@ -54,6 +54,9 @@
                                         </template>
                                     </td>
                                     <td class="align-middle text-center">
+                                        <button class="btn btn-info me-2" data-bs-toggle="modal"
+                                            data-bs-target="#hopDongModal"
+                                            v-on:click="Object.assign(create_hop_dong, v)">Tạo Hợp Đồng</button>
                                         <button class="btn btn-primary me-2" data-bs-toggle="modal"
                                             data-bs-target="#capnhatDM"
                                             v-on:click="Object.assign(edit_nhan_vien, v)">Cập nhật</button>
@@ -77,27 +80,27 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-2">
-                            <label class="form-lable">Họ Và Tên</label>
+                            <label class="form-label">Họ Và Tên</label>
                             <input v-model="create_nhan_vien.ho_va_ten" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Email</label>
+                            <label class="form-label">Email</label>
                             <input v-model="create_nhan_vien.email" type="email" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Ngày Sinh</label>
+                            <label class="form-label">Ngày Sinh</label>
                             <input v-model="create_nhan_vien.ngay_sinh" type="date" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Số Điện Thoại</label>
+                            <label class="form-label">Số Điện Thoại</label>
                             <input v-model="create_nhan_vien.so_dien_thoai" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Password</label>
+                            <label class="form-label">Password</label>
                             <input v-model="create_nhan_vien.password" type="password" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Địa Chỉ</label>
+                            <label class="form-label">Địa Chỉ</label>
                             <input v-model="create_nhan_vien.dia_chi" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
@@ -165,23 +168,23 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-2">
-                            <label class="form-lable">Họ Và Tên</label>
+                            <label class="form-label">Họ Và Tên</label>
                             <input v-model="edit_nhan_vien.ho_va_ten" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Email</label>
+                            <label class="form-label">Email</label>
                             <input v-model="edit_nhan_vien.email" type="email" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Ngày Sinh</label>
+                            <label class="form-label">Ngày Sinh</label>
                             <input v-model="edit_nhan_vien.ngay_sinh" type="date" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Số Điện Thoại</label>
+                            <label class="form-label">Số Điện Thoại</label>
                             <input v-model="edit_nhan_vien.so_dien_thoai" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label class="form-lable">Địa Chỉ</label>
+                            <label class="form-label">Địa Chỉ</label>
                             <input v-model="edit_nhan_vien.dia_chi" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
@@ -210,6 +213,52 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="hopDongModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tạo Hợp Đồng Nhân Viên</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label class="form-label fw-bold">Chọn Hợp Đồng</label>
+                                <select v-model="create_hop_dong.id_loai_hop_dong" v-on:change="loadNoiDung()" class="form-control">
+                                    <template v-for="(v, k) in list_hop_dong" :key="k">
+                                        <option v-bind:value="v.id">{{ v.ten_hop_dong }}</option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-12">
+                                <textarea v-model="create_hop_dong.noi_dung" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-4">
+                                <label class="form-label fw-bold">Ngày Bắt Đầu</label>
+                                <input v-model="create_hop_dong.ngay_bat_dau" type="date" class="form-control">
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label fw-bold">Ngày Kết Thúc</label>
+                                <input v-model="create_hop_dong.ngay_ket_thuc" type="date" class="form-control">
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label fw-bold">Ngày Ký</label>
+                                <input v-model="create_hop_dong.ngay_ky" type="date" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            v-on:click="taoHopDong()">Tạo Hợp Đồng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -223,7 +272,9 @@ export default {
             list_nhan_vien: [],
             list_chuc_vu: [],
             list_phong_ban: [],
-            search: {}
+            list_hop_dong: [],
+            search: {},
+            create_hop_dong: {},
         }
 
     },
@@ -231,13 +282,38 @@ export default {
         this.loadNhanVien();
         this.loadChucVu();
         this.loadPhongBan();
+        this.loadHopDong();
     },
     methods: {
+        loadNoiDung() {
+            this.list_hop_dong.forEach((v, k) => {
+                if (v.id == this.create_hop_dong.id_loai_hop_dong) {
+                    this.create_hop_dong.noi_dung = v.noi_dung
+                }
+            })
+        },
+        taoHopDong() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/create', this.create_hop_dong)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadNhanVien();
+                    }
+                })
+        },
         TimKiemBE() {
             axios
                 .post('http://127.0.0.1:8000/api/admin/nhan-vien/tim-kiem', this.search)
                 .then((res) => {
                     this.list_nhan_vien = res.data.data
+                })
+        },
+        loadHopDong() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/data-open')
+                .then((res) => {
+                    this.list_hop_dong = res.data.data;
                 })
         },
         loadNhanVien() {

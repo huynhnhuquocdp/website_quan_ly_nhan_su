@@ -33,15 +33,6 @@
 
 				</li>
 				<li class="nav-item">
-					<router-link to="/admin/luong">
-						<a class="nav-link" href="/admin/luong">
-							<div class="parent-icon"><i class="fa-solid fa-money-bill"></i>
-							</div>
-							<div class="menu-title">Lương</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
 					<router-link to="/admin/tieu-chi-kpi">
 						<a class="nav-link" href="/admin/tieu-chi-kpi">
 							<div class="parent-icon"><i class="fas fa-chart-line"></i>
@@ -78,20 +69,20 @@
 					</router-link>
 				</li>
 				<li class="nav-item">
-					<router-link to="/admin/cham-cong">
-						<a class="nav-link" href="/admin/cham-cong">
-							<div class="parent-icon"><i class="fa-solid fa-business-time"></i>
-							</div>
-							<div class="menu-title">Lịch Sử Chấm Công</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
 					<router-link to="/admin/loai-hop-dong">
 						<a class="nav-link" href="/admin/loai-hop-dong">
 							<div class="parent-icon"><i class="fa-solid fa-file-contract"></i>
 							</div>
 							<div class="menu-title">Loại Hợp Đồng</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/admin/chi-tiet-hop-dong">
+						<a class="nav-link" href="/admin/chi-tiet-hop-dong">
+							<div class="parent-icon"><i class="fa-solid fa-file-signature"></i>
+							</div>
+							<div class="menu-title">Hợp Đồng Nhân Viên</div>
 						</a>
 					</router-link>
 				</li>
