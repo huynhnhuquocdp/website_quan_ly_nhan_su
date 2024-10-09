@@ -46,6 +46,14 @@ const routes = [
         path: '/admin/kpi-nhan-vien',
         component: () => import('../components/Admin/KPINhanVien/index.vue')
     },
+    {
+        path: '/admin/thuong-va-phat',
+        component: () => import('../components/Admin/ThuongVaPhat/index.vue')
+    },
+    {
+        path: '/admin/thong-ke',
+        component: () => import('../components/Admin/ThongKe/index.vue')
+    },
 ]
 
 const router = createRouter({

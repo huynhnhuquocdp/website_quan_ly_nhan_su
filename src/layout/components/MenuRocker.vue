@@ -76,7 +76,15 @@
 						</a>
 					</router-link>
 				</li>
-
+				<li class="nav-item">
+					<router-link to="/admin/thuong-va-phat">
+						<a class="nav-link" href="/admin/thuong-va-phat">
+							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
+							</div>
+							<div class="menu-title">Thưởng Và Phạt</div>
+						</a>
+					</router-link>
+				</li>
 				<li class="nav-item">
 					<router-link to="/admin/loai-hop-dong">
 						<a class="nav-link" href="/admin/loai-hop-dong">
@@ -101,6 +109,15 @@
 							<div class="parent-icon"><i class="fa-solid fa-calendar-plus"></i>
 							</div>
 							<div class="menu-title">Chấm Công</div>
+						</a>
+					</router-link>
+				</li>
+				<li class="nav-item">
+					<router-link to="/admin/thong-ke">
+						<a class="nav-link" href="/admin/thong-ke">
+							<div class="parent-icon"><i class="fa-solid fa-chart-simple"></i>
+							</div>
+							<div class="menu-title">Thống Kê</div>
 						</a>
 					</router-link>
 				</li>
