@@ -37,7 +37,7 @@
                                     <td class="align-middle">{{ value.ho_va_ten }}</td>
                                     <td class="align-middle">{{ value.ten_tieu_chi }}</td>
                                     <td class="align-middle text-center"> {{ value.diem_duoc_cham }} </td>
-                                    <td class="align-middle">Nguyễn Quốc Long</td>
+                                    <td class="align-middle text-center">{{ value.id_nhan_vien_danh_gia }}</td>
                                     <td class="align-middle text-center">{{ value.ngay_danh_gia }}</td>
                                     <td class="align-middle text-center">
                                         <button class="btn btn-info me-2" data-bs-toggle="modal"

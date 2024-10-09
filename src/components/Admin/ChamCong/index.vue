@@ -44,6 +44,7 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Nhân Viên</th>
+                                        <th class="text-center">Phòng Ban</th>
                                         <th class="text-center">Ngày Chấm Công</th>
                                         <th class="text-center">Ca Làm</th>
                                         <th class="text-center">Action</th>
@@ -54,6 +55,7 @@
                                         <tr>
                                             <th class="align-middle text-center">1</th>
                                             <td class="align-middle">{{ value.ho_va_ten }}</td>
+                                            <td class="align-middle">{{ value.ten_phong_ban }}</td>
                                             <td class="align-middle text-center">{{ value.ngay_lam_viec }}</td>
                                             <td class="align-middle text-center"> {{ value.ca_lam == 1 ? "Ca Sáng" :
                                 (value.ca_lam == 2 ? "Ca Chiều" : "Ca Tối") }} </td>
@@ -210,6 +212,7 @@ export default {
     },
     mounted() {
         this.loadDataNhanVien();
+        this.loadDataChamCong();
     },
     methods: {
         loadDataNhanVien() {
