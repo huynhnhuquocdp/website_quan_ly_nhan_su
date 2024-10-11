@@ -36,8 +36,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Tên Thống Kê</th>
-                                    <th class="text-center">Số Lượng</th>
+                                    <th class="text-center">Tên Nhân Viên</th>
+                                    <th class="text-center">Số Điểm</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +54,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mt-2">Thống Kê 1</h5>
+                        <h5 class="mt-2">Thống Kê Số Điểm KPI Của Từng Nhân Viên</h5>
                     </div>
                     <div class="card-body">
                         CHART Ở ĐÂY

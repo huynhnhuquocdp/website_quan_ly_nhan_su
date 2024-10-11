@@ -10,11 +10,11 @@
                 </div>
                 <div class="card-body table-responsive">
                     <div class="input-group mt-3 w-100">
-                        <input type="text" class="form-control search-control border border-1 border-secondary"
+                        <input type="text" v-model="search.noi_dung" class="form-control search-control border border-1 border-secondary"
                             placeholder="Search..." />
                         <span class="position-absolute top-50 search-show translate-middle-y" style="left: 15px"><i
                                 class="bx bx-search"></i></span>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" v-on:click="TimKiemThuongVaPhat()">
                             Tìm Kiếm
                         </button>
                     </div>
@@ -32,20 +32,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="align-middle text-center">1</th>
-                                <td class="align-middle">Nguyễn Văn A</td>
-                                <td class="align-middle">Nguyễn Quốc Long</td>
-                                <td class="align-middle text-center"> Điểm thưởng vì đóng góp sáng kiến </td>
-                                <td class="align-middle text-center">20</td>
-                                <td class="align-middle text-center">Thưởng vì đóng góp ý kiến hay trong cuộc họp</td>
-                                <td class="align-middle text-center">2024-09-10</td>
+                            <tr v-for="(v, k) in list_thuong_va_phat" :key="k">
+                                <th class="align-middle text-center">{{ k + 1 }}</th>
+                                <td class="align-middle">{{ v.ho_va_ten }}</td>
+                                <td class="align-middle">{{ v.ten_nhan_vien_cho_diem }}</td>
+                                <td class="align-middle"> {{ v.noi_dung }} </td>
+                                <td class="align-middle text-center">{{ v.diem }}</td>
+                                <td class="align-middle">{{ v.ly_do }}</td>
+                                <td class="align-middle text-center">{{ v.ngay }}</td>
                                 <td class="align-middle text-center">
-                                    <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                        data-bs-target="#capnhatDM">
+                                    <button v-on:click="Object.assign(update, v)" class="btn btn-primary me-2"
+                                        data-bs-toggle="modal" data-bs-target="#capnhatDM">
                                         Cập nhật
                                     </button>
-                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">
+                                    <button v-on:click="Object.assign(del, v)" class="btn btn-danger"
+                                        data-bs-toggle="modal" data-bs-target="#delModal">
                                         Xóa
                                     </button>
                                 </td>
@@ -67,34 +68,30 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Chọn Nhân Viên</label>
-                            <select class="form-control mt-1">
-                                <option value="0">Nguyễn Văn A</option>
+                            <select v-model="create.id_nhan_vien" class="form-control mt-1">
+                                <template v-for="(v, k) in list_nhan_vien" :key="k">
+                                    <option v-bind:value="v.id">{{ v.ho_va_ten }}</option>
+                                </template>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Chọn Quy Định</label>
-                            <select class="form-control mt-1">
-                                <option value="0">Điểm phạt vì đi muộn</option>
+                            <select v-model="create.id_quy_dinh" class="form-control mt-1">
+                                <template v-for="(v, k) in list_quy_dinh" :key="k">
+                                    <option v-bind:value="v.id">{{ v.noi_dung }}</option>
+                                </template>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Điểm</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">Lý Do</label>
-                            <textarea class="form-control" cols="30" rows="10"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Ngày</label>
-                            <input type="date" class="form-control">
+                            <textarea v-model="create.ly_do" class="form-control" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                        <button v-on:click="createThuongvaPhat()" class="btn btn-primary" data-bs-dismiss="modal">
                             Thêm Mới
                         </button>
                     </div>
@@ -116,8 +113,8 @@
                                 </div>
                                 <div class="ms-1">
                                     <h6 class="mb-1 text-white">
-                                        Bạn chắc chắc xóa thưởng hoặc phạt <b>Điểm thưởng vì đóng góp sáng kiến</b> của
-                                        <b>Nguyễn Văn A</b> này
+                                        Bạn chắc chắc xóa thưởng hoặc phạt <b>{{ del.noi_dung }}</b> của
+                                        <b>{{ del.ho_va_ten }}</b> này
                                         chứ !!!
                                     </h6>
                                     <div class="text-white text-nowrap">
@@ -132,7 +129,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <button v-on:click="delThuongVaPhat()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                             Xác nhận
                         </button>
                     </div>
@@ -151,34 +148,30 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Chọn Nhân Viên</label>
-                            <select class="form-control mt-1">
-                                <option value="0">Nguyễn Văn A</option>
+                            <select v-model="update.id_nhan_vien" class="form-control mt-1">
+                                <template v-for="(v, k) in list_nhan_vien" :key="k">
+                                    <option v-bind:value="v.id">{{ v.ho_va_ten }}</option>
+                                </template>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Chọn Quy Định</label>
-                            <select class="form-control mt-1">
-                                <option value="0">Điểm phạt vì đi muộn</option>
+                            <select v-model="update.id_quy_dinh" class="form-control mt-1">
+                                <template v-for="(v, k) in list_quy_dinh" :key="k">
+                                    <option v-bind:value="v.id">{{ v.noi_dung }}</option>
+                                </template>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Điểm</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">Lý Do</label>
-                            <textarea class="form-control" cols="30" rows="10"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Ngày</label>
-                            <input type="date" class="form-control">
+                            <textarea v-model="update.ly_do" class="form-control" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <button v-on:click="updateThuongVaPhat()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
                             Cập nhật
                         </button>
                     </div>
@@ -192,14 +185,94 @@ import axios from "axios";
 export default {
     data() {
         return {
-
+            list_nhan_vien: [],
+            list_quy_dinh: [],
+            list_thuong_va_phat: [],
+            create: {},
+            update : {},
+            del : {},
+            search: {}
         };
     },
     mounted() {
-
+        this.loadDataNhanVien();
+        this.loadDataQuyDinh();
+        this.loadDataThuongVaPhat();
     },
     methods: {
+        loadDataNhanVien() {
+            axios
+                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open")
+                .then((res) => {
+                    this.list_nhan_vien = res.data.data;
+                });
+        },
 
+        loadDataQuyDinh() {
+            axios
+                .get("http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data-open")
+                .then((res) => {
+                    this.list_quy_dinh = res.data.data;
+                });
+        },
+
+        loadDataThuongVaPhat() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/thuong-va-phat/data')
+                .then((res) => {
+                    this.list_thuong_va_phat = res.data.data
+                });
+        },
+
+        createThuongvaPhat() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/create', this.create)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDataThuongVaPhat();
+                        this.create = {};
+                    }
+                    else {
+                        this.$toast.error(res.data.message);
+                    }
+                })
+        },
+
+        updateThuongVaPhat() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/update', this.update)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDataThuongVaPhat();
+                    }
+                    else {
+                        this.$toast.error(res.data.message);
+                    }
+                })
+        },
+
+        delThuongVaPhat() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/delete', this.del)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDataThuongVaPhat();
+                    }
+                    else {
+                        this.$toast.error(res.data.message);
+                    }
+                })
+        },
+        TimKiemThuongVaPhat() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/tim-kiem', this.search)
+                .then((res) => {
+                    this.list_thuong_va_phat = res.data.data
+                })
+        },
     },
 };
 </script>

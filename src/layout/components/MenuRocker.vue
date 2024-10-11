@@ -112,14 +112,35 @@
 						</a>
 					</router-link>
 				</li>
-				<li class="nav-item">
-					<router-link to="/admin/thong-ke">
-						<a class="nav-link" href="/admin/thong-ke">
-							<div class="parent-icon"><i class="fa-solid fa-chart-simple"></i>
-							</div>
-							<div class="menu-title">Thống Kê</div>
-						</a>
-					</router-link>
+				<li class="nav-item dropdown">
+					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
+						data-bs-toggle="dropdown">
+						<div class="parent-icon"><i class="fa-solid fa-chart-simple"></i>
+						</div>
+						<div class="menu-title">Thống Kê</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li> 
+							<router-link to="/admin/thong-ke-ca-cham-cong">
+								<a class="dropdown-item" href="/admin/thong-ke-ca-cham-cong"><i class="bx bx-right-arrow-alt"></i>Thống Kê Ca Chấm Công</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/thong-ke-diem-kpi-nhan-vien">
+								<a class="dropdown-item" href="/admin/thong-ke-diem-kpi-nhan-vien"><i class="bx bx-right-arrow-alt"></i>Thống Kê Điểm KPI Nhân Viên</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/thong-ke-diem-phat">
+								<a class="dropdown-item" href="/admin/thong-ke-diem-phat"><i class="bx bx-right-arrow-alt"></i>Thống Kê Điểm Phạt Nhân Viên</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/thong-ke-diem-thuong">
+								<a class="dropdown-item" href="/admin/thong-ke-diem-thuong"><i class="bx bx-right-arrow-alt"></i>Thống Kê Điểm Thưởng Nhân Viên</a>
+							</router-link>
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</nav>
