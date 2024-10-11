@@ -51,8 +51,20 @@ const routes = [
         component: () => import('../components/Admin/ThuongVaPhat/index.vue')
     },
     {
-        path: '/admin/thong-ke',
-        component: () => import('../components/Admin/ThongKe/index.vue')
+        path: '/admin/thong-ke-ca-cham-cong',
+        component: () => import('../components/Admin/ThongKe/ThongKeCaChamCong/index.vue')
+    },
+    {
+        path: '/admin/thong-ke-diem-kpi-nhan-vien',
+        component: () => import('../components/Admin/ThongKe/ThongKeDiemKPINhanVien/index.vue')
+    },
+    {
+        path: '/admin/thong-ke-diem-phat',
+        component: () => import('../components/Admin/ThongKe/ThongKeDiemPhat/index.vue')
+    },
+    {
+        path: '/admin/thong-ke-diem-thuong',
+        component: () => import('../components/Admin/ThongKe/ThongKeDiemThuong/index.vue')
     },
 ]
 

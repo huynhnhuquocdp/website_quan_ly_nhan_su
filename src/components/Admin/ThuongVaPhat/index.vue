@@ -10,11 +10,11 @@
                 </div>
                 <div class="card-body table-responsive">
                     <div class="input-group mt-3 w-100">
-                        <input type="text" class="form-control search-control border border-1 border-secondary"
+                        <input type="text" v-model="search.noi_dung" class="form-control search-control border border-1 border-secondary"
                             placeholder="Search..." />
                         <span class="position-absolute top-50 search-show translate-middle-y" style="left: 15px"><i
                                 class="bx bx-search"></i></span>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" v-on:click="TimKiemThuongVaPhat()">
                             Tìm Kiếm
                         </button>
                     </div>
@@ -35,10 +35,10 @@
                             <tr v-for="(v, k) in list_thuong_va_phat" :key="k">
                                 <th class="align-middle text-center">{{ k + 1 }}</th>
                                 <td class="align-middle">{{ v.ho_va_ten }}</td>
-                                <td class="align-middle">Nguyễn Quốc Long</td>
-                                <td class="align-middle text-center"> {{ v.noi_dung }} </td>
+                                <td class="align-middle">{{ v.ten_nhan_vien_cho_diem }}</td>
+                                <td class="align-middle"> {{ v.noi_dung }} </td>
                                 <td class="align-middle text-center">{{ v.diem }}</td>
-                                <td class="align-middle text-center">{{ v.ly_do }}</td>
+                                <td class="align-middle">{{ v.ly_do }}</td>
                                 <td class="align-middle text-center">{{ v.ngay }}</td>
                                 <td class="align-middle text-center">
                                     <button v-on:click="Object.assign(update, v)" class="btn btn-primary me-2"
@@ -190,7 +190,8 @@ export default {
             list_thuong_va_phat: [],
             create: {},
             update : {},
-            del : {}
+            del : {},
+            search: {}
         };
     },
     mounted() {
@@ -264,7 +265,14 @@ export default {
                         this.$toast.error(res.data.message);
                     }
                 })
-        }
+        },
+        TimKiemThuongVaPhat() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/tim-kiem', this.search)
+                .then((res) => {
+                    this.list_thuong_va_phat = res.data.data
+                })
+        },
     },
 };
 </script>

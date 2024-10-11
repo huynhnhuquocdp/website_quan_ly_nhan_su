@@ -53,7 +53,7 @@
                                 <tbody>
                                     <template v-for="(value, index) in list_cham_cong" :key="index">
                                         <tr>
-                                            <th class="align-middle text-center">1</th>
+                                            <th class="align-middle text-center">{{ index + 1 }}</th>
                                             <td class="align-middle">{{ value.ho_va_ten }}</td>
                                             <td class="align-middle">{{ value.ten_phong_ban }}</td>
                                             <td class="align-middle text-center">{{ value.ngay_lam_viec }}</td>
