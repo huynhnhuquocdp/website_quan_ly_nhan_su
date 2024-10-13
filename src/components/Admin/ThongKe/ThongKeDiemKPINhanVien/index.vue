@@ -8,17 +8,17 @@
                             <div class="col-lg-5">
                                 <div class="input-group">
                                     <span class="input-group-text">Từ ngày</span>
-                                    <input type="date" class="form-control">
+                                    <input v-model="day.tu_ngay" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-5">
                                 <div class="input-group">
                                     <span class="input-group-text">Đến ngày</span>
-                                    <input type="date" class="form-control">
+                                    <input v-model="day.den_ngay" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <button class="btn btn-primary w-100">Thống Kê</button>
+                                <button v-on:click="thongKe()" class="btn btn-primary w-100">Thống Kê</button>
                             </div>
                         </div>
                     </div>
@@ -41,11 +41,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="text-center">1</th>
-                                    <td>xxx</td>
-                                    <td>xxx</td>
-                                </tr>
+                                <template v-for="(value, index) in list_kpi_nhan_vien" :key="index">
+                                    <tr>
+                                        <th class="text-center">{{ index + 1 }}</th>
+                                        <td>{{ value.ho_va_ten }}</td>
+                                        <td>{{ value.so_luong_cham }}</td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
@@ -57,7 +59,7 @@
                         <h5 class="mt-2">Thống Kê Số Điểm KPI Của Từng Nhân Viên</h5>
                     </div>
                     <div class="card-body">
-                        CHART Ở ĐÂY
+                        <Bar v-if="is_load == true" id="my-chart-id" :options="chartOptions" :data="chartData" />
                     </div>
                 </div>
             </div>
@@ -66,18 +68,48 @@
 </template>
 <script>
 import axios from 'axios'
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 export default {
+    name: 'BarChart',
+    components: { Bar },
     data() {
         return {
-            
+            day : {},
+            list_kpi_nhan_vien : [],
+            chartData: {
+                labels: [],
+                datasets: [
+                    {
+                        data: [],
+                        backgroundColor: ["#C0392B", "#1ABC9C", "#F1C40F", "#E67E22", "#8E44AD", "#2980B9", "#27AE60"]
+                    }
+                ]
+            },
+            chartOptions: {
+                responsive: true
+            },
+            is_load: false
+
         }
     },
     mounted() {
-       
+
     },
     methods: {
-        
+        thongKe() {
+            this.is_load = false
+            axios
+                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/thong-ke', this.day)
+                .then((res) => {
+                    this.list_kpi_nhan_vien = res.data.data;
+                    this.chartData.labels = res.data.ten_nhan_vien;
+                    this.chartData.datasets[0].data = res.data.tong_so_luong_kpi;
+                    this.is_load = true
+                })
+        }
     },
 }
 </script>
