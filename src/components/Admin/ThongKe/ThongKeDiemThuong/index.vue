@@ -45,7 +45,7 @@
                                     <tr>
                                         <th class="text-center">{{ index + 1 }}</th>
                                         <td>{{ value.ho_va_ten }}</td>
-                                        <td>{{ value.so_diem_thuong }}</td>
+                                        <td class="text-center">{{ value.so_diem_thuong }}</td>
                                     </tr>
                                 </template>
                             </tbody>
