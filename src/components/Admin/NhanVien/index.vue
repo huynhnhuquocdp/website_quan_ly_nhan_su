@@ -301,6 +301,12 @@ export default {
                         this.loadNhanVien();
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         TimKiemBE() {
             axios
@@ -308,6 +314,12 @@ export default {
                 .then((res) => {
                     this.list_nhan_vien = res.data.data
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         loadHopDong() {
             axios
@@ -347,6 +359,12 @@ export default {
                         this.create_nhan_vien = {};
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         capNhatNhanVien() {
             axios
@@ -357,6 +375,12 @@ export default {
                         this.loadNhanVien();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         xoaNhanVien() {
@@ -368,6 +392,12 @@ export default {
                         this.loadNhanVien();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         changeStatus(value) {
@@ -379,6 +409,12 @@ export default {
                         this.loadNhanVien();
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         }
     }
 }
