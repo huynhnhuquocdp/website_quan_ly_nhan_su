@@ -42,17 +42,21 @@
                                         <td class="align-middle text-nowrap">{{ v.ten_chuc_vu }}</td>
                                         <td class="align-middle text-nowrap text-center">
                                             <template v-if="v.tinh_trang == 1">
-                                                <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hiển Thị</button>
+                                                <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hiển
+                                                    Thị</button>
                                             </template>
                                             <template v-else>
-                                                <button v-on:click="changeStatus(v)" class="btn btn-danger w-100">Tạm Tắt</button>
+                                                <button v-on:click="changeStatus(v)" class="btn btn-danger w-100">Tạm
+                                                    Tắt</button>
                                             </template>
                                         </td>
                                         <td class="text-center align-middle text-nowrap">
                                             <button class="btn btn-info me-2" data-bs-toggle="modal"
-                                            v-on:click="Object.assign(edit_chuc_vu, v)" data-bs-target="#editModal">Cập Nhật</button>
+                                                v-on:click="Object.assign(edit_chuc_vu, v)"
+                                                data-bs-target="#editModal">Cập Nhật</button>
                                             <button class="btn btn-danger" data-bs-toggle="modal"
-                                            v-on:click="Object.assign(delete_chuc_vu, v)"  data-bs-target="#deleteModal">Xóa Bỏ</button>
+                                                v-on:click="Object.assign(delete_chuc_vu, v)"
+                                                data-bs-target="#deleteModal">Xóa Bỏ</button>
                                         </td>
                                     </tr>
                                 </template>
@@ -76,7 +80,9 @@
                                         <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                                         </div>
                                         <div class="ms-1">
-                                            <h6 class="mb-1 text-white">Bạn chắc chắc xóa chức vụ <b>{{ delete_chuc_vu.ten_chuc_vu }}</b> này chứ
+                                            <h6 class="mb-1 text-white">Bạn chắc chắc xóa chức vụ <b>{{
+                        delete_chuc_vu.ten_chuc_vu
+                    }}</b> này chứ
                                                 !!!</h6>
                                             <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
                                                 phục
@@ -88,7 +94,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button @click="xoaChucVu()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Xác
+                                <button @click="xoaChucVu()" type="button" class="btn btn-danger"
+                                    data-bs-dismiss="modal">Xác
                                     Nhận</button>
                             </div>
                         </div>
@@ -116,7 +123,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button @click="capNhatChucVu()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Xác Nhận</button>
+                                <button @click="capNhatChucVu()" type="button" class="btn btn-primary"
+                                    data-bs-dismiss="modal">Xác
+                                    Nhận</button>
                             </div>
                         </div>
                     </div>
@@ -158,6 +167,12 @@ export default {
                         this.create_chuc_vu = {};
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         capNhatChucVu() {
             axios
@@ -168,6 +183,12 @@ export default {
                         this.loadChucVu();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         xoaChucVu() {
@@ -179,6 +200,12 @@ export default {
                         this.loadChucVu();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         changeStatus(value) {
@@ -190,6 +217,12 @@ export default {
                         this.loadChucVu();
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         }
     }
 }
