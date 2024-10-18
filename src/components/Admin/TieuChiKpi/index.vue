@@ -183,6 +183,12 @@ export default {
                         this.create_tieu_chi_kpi = {};
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         capNhatTieuChiKPI() {
             axios
@@ -193,6 +199,12 @@ export default {
                         this.loadTieuChiKPI();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         xoaTieuChiKPI() {
@@ -204,6 +216,12 @@ export default {
                         this.loadTieuChiKPI();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         changeStatus(value) {
@@ -215,6 +233,12 @@ export default {
                         this.loadTieuChiKPI();
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         }
     }
 }
