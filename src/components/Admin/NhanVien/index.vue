@@ -26,6 +26,7 @@
                                 <th class="text-center">Ngày Sinh</th>
                                 <th class="text-center">Số Điện Thoại</th>
                                 <th class="text-center">Địa Chỉ</th>
+                                <th class="text-center">Lương Cơ Bản</th>
                                 <th class="text-center">Chức Vụ</th>
                                 <th class="text-center">Phòng Ban</th>
                                 <th class="text-center">Tình Trạng</th>
@@ -41,6 +42,7 @@
                                     <td class="align-middle text-center">{{ v.ngay_sinh }}</td>
                                     <td class="align-middle text-center">{{ v.so_dien_thoai }}</td>
                                     <td class="align-middle">{{ v.dia_chi }}</td>
+                                    <td class="align-middle text-end">{{ v.luong_co_ban }} đ</td>
                                     <td class="align-middle text-center">{{ v.ten_chuc_vu }}</td>
                                     <td class="align-middle text-center">{{ v.ten_phong_ban }}</td>
                                     <td class="align-middle text-center">
@@ -102,6 +104,10 @@
                         <div class="mb-2">
                             <label class="form-label">Địa Chỉ</label>
                             <input v-model="create_nhan_vien.dia_chi" type="text" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Lương Cơ Bản</label>
+                            <input v-model="create_nhan_vien.luong_co_ban" type="number" class="form-control">
                         </div>
                         <div class="mb-2">
                             <label>Chức Vụ</label>
@@ -186,6 +192,10 @@
                         <div class="mb-2">
                             <label class="form-label">Địa Chỉ</label>
                             <input v-model="edit_nhan_vien.dia_chi" type="text" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Lương Cơ Bản</label>
+                            <input v-model="edit_nhan_vien.luong_co_ban" type="number" class="form-control">
                         </div>
                         <div class="mb-2">
                             <label>Chức Vụ</label>

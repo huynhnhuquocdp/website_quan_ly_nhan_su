@@ -21,96 +21,121 @@
 						</a>
 					</router-link>
 				</li>
-				<li class="nav-item">
-					<router-link to="/admin/nhan-vien">
-						<a class="nav-link" href="/admin/nhan-vien">
-							<div class="parent-icon"><i class="fa-solid fa-user"></i>
-							</div>
-							<div class="menu-title">Nhân Viên</div>
-						</a>
-					</router-link>
-
+				<li class="nav-item dropdown">
+					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
+						data-bs-toggle="dropdown">
+						<div class="parent-icon"><i class="fa-solid fa-user"></i>
+						</div>
+						<div class="menu-title">Quản Lý Nhân Viên</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li> 
+							<router-link to="/admin/nhan-vien">
+								<a class="dropdown-item" href="/admin/nhan-vien"><i
+									class="bx bx-right-arrow-alt"></i>Nhân Viên</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/chuc-vu">
+								<a class="dropdown-item" href="/admin/chuc-vu"><i
+									class="bx bx-right-arrow-alt"></i>Chức Vụ</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/phong-ban">
+								<a class="dropdown-item" href="/admin/phong-ban"><i
+									class="bx bx-right-arrow-alt"></i>Phòng Ban</a>
+							</router-link>
+						</li>
+					</ul>
 				</li>
-				<li class="nav-item">
-					<router-link to="/admin/chuc-vu">
-						<a class="nav-link" href="/admin/chuc-vu">
-							<div class="parent-icon"><i class="fa-solid fa-user-tie"></i>
-							</div>
-							<div class="menu-title">Chức Vụ</div>
-						</a>
-					</router-link>
+				<li class="nav-item dropdown">
+					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
+						data-bs-toggle="dropdown">
+						<div class="parent-icon"><i class="fas fa-chart-line"></i>
+						</div>
+						<div class="menu-title">Quản Lý KPI</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li> 
+							<router-link to="/admin/tieu-chi-kpi">
+								<a class="dropdown-item" href="/admin/tieu-chi-kpi"><i
+									class="bx bx-right-arrow-alt"></i>Tiêu Chí KPI</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/kpi-nhan-vien">
+								<a class="dropdown-item" href="/admin/kpi-nhan-vien"><i
+									class="bx bx-right-arrow-alt"></i>KPI Nhân Viên</a>
+							</router-link>
+						</li>
+					</ul>
 				</li>
-				<li class="nav-item">
-					<router-link to="/admin/phong-ban">
-						<a class="nav-link" href="/admin/phong-ban">
-							<div class="parent-icon"><i class="fa-solid fa-person-shelter"></i>
-							</div>
-							<div class="menu-title">Phòng Ban</div>
-						</a>
-					</router-link>
+				<li class="nav-item dropdown">
+					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
+						data-bs-toggle="dropdown">
+						<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
+						</div>
+						<div class="menu-title">Quản Lý Thưởng Và Phạt</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li> 
+							<router-link to="/admin/quy-dinh-cho-diem">
+								<a class="dropdown-item" href="/admin/quy-dinh-cho-diem"><i
+									class="bx bx-right-arrow-alt"></i>Quy Định Cho Điểm</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/thuong-va-phat">
+								<a class="dropdown-item" href="/admin/thuong-va-phat"><i
+									class="bx bx-right-arrow-alt"></i>Thưởng Và Phạt</a>
+							</router-link>
+						</li>
+					</ul>
 				</li>
-				<li class="nav-item">
-					<router-link to="/admin/tieu-chi-kpi">
-						<a class="nav-link" href="/admin/tieu-chi-kpi">
-							<div class="parent-icon"><i class="fas fa-chart-line"></i>
-							</div>
-							<div class="menu-title">Tiêu Chí KPI</div>
-						</a>
-					</router-link>
+				<li class="nav-item dropdown">
+					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
+						data-bs-toggle="dropdown">
+						<div class="parent-icon"><i class="fa-solid fa-file-contract"></i>
+						</div>
+						<div class="menu-title">Quản Lý Hợp Đồng</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li> 
+							<router-link to="/admin/loai-hop-dong">
+								<a class="dropdown-item" href="/admin/loai-hop-dong"><i
+									class="bx bx-right-arrow-alt"></i>Loại Hợp Đồng</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/chi-tiet-hop-dong">
+								<a class="dropdown-item" href="/admin/chi-tiet-hop-dong"><i
+									class="bx bx-right-arrow-alt"></i>Hợp Đồng Nhân Viên</a>
+							</router-link>
+						</li>
+					</ul>
 				</li>
-				<li class="nav-item">
-					<router-link to="/admin/kpi-nhan-vien">
-						<a class="nav-link" href="/admin/kpi-nhan-vien">
-							<div class="parent-icon"><i class="fa-solid fa-magnifying-glass-chart"></i>
-							</div>
-							<div class="menu-title">KPI Nhân Viên</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/quy-dinh-cho-diem">
-						<a class="nav-link" href="/admin/quy-dinh-cho-diem">
-							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
-							</div>
-							<div class="menu-title">Quy Định Cho Điểm</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/thuong-va-phat">
-						<a class="nav-link" href="/admin/thuong-va-phat">
-							<div class="parent-icon"><i class="fa-solid fa-feather-pointed"></i>
-							</div>
-							<div class="menu-title">Thưởng Và Phạt</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/loai-hop-dong">
-						<a class="nav-link" href="/admin/loai-hop-dong">
-							<div class="parent-icon"><i class="fa-solid fa-file-contract"></i>
-							</div>
-							<div class="menu-title">Loại Hợp Đồng</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/chi-tiet-hop-dong">
-						<a class="nav-link" href="/admin/chi-tiet-hop-dong">
-							<div class="parent-icon"><i class="fa-solid fa-file-signature"></i>
-							</div>
-							<div class="menu-title">Hợp Đồng Nhân Viên</div>
-						</a>
-					</router-link>
-				</li>
-				<li class="nav-item">
-					<router-link to="/admin/cham-cong">
-						<a class="nav-link" href="/admin/cham-cong">
-							<div class="parent-icon"><i class="fa-solid fa-calendar-plus"></i>
-							</div>
-							<div class="menu-title">Chấm Công</div>
-						</a>
-					</router-link>
+				<li class="nav-item dropdown">
+					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
+						data-bs-toggle="dropdown">
+						<div class="parent-icon"><i class="fa-solid fa-calendar-plus"></i>
+						</div>
+						<div class="menu-title">Quản Lý Chấm Công</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li> 
+							<router-link to="/admin/cham-cong">
+								<a class="dropdown-item" href="/admin/cham-cong"><i
+									class="bx bx-right-arrow-alt"></i>Chấm Công</a>
+							</router-link>
+						</li>
+						<li> 
+							<router-link to="/admin/luong">
+								<a class="dropdown-item" href="/admin/luong"><i
+									class="bx bx-right-arrow-alt"></i>Lương</a>
+							</router-link>
+						</li>
+					</ul>
 				</li>
 				<li class="nav-item dropdown">
 					<a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
@@ -120,24 +145,28 @@
 						<div class="menu-title">Thống Kê</div>
 					</a>
 					<ul class="dropdown-menu">
-						<li> 
+						<li>
 							<router-link to="/admin/thong-ke-ca-cham-cong">
-								<a class="dropdown-item" href="/admin/thong-ke-ca-cham-cong"><i class="bx bx-right-arrow-alt"></i>Thống Kê Ca Chấm Công</a>
+								<a class="dropdown-item" href="/admin/thong-ke-ca-cham-cong"><i
+										class="bx bx-right-arrow-alt"></i>Thống Kê Ca Chấm Công</a>
 							</router-link>
 						</li>
-						<li> 
+						<li>
 							<router-link to="/admin/thong-ke-diem-kpi-nhan-vien">
-								<a class="dropdown-item" href="/admin/thong-ke-diem-kpi-nhan-vien"><i class="bx bx-right-arrow-alt"></i>Thống Kê Điểm KPI Nhân Viên</a>
+								<a class="dropdown-item" href="/admin/thong-ke-diem-kpi-nhan-vien"><i
+										class="bx bx-right-arrow-alt"></i>Thống Kê Điểm KPI Nhân Viên</a>
 							</router-link>
 						</li>
-						<li> 
+						<li>
 							<router-link to="/admin/thong-ke-diem-phat">
-								<a class="dropdown-item" href="/admin/thong-ke-diem-phat"><i class="bx bx-right-arrow-alt"></i>Thống Kê Điểm Phạt Nhân Viên</a>
+								<a class="dropdown-item" href="/admin/thong-ke-diem-phat"><i
+										class="bx bx-right-arrow-alt"></i>Thống Kê Điểm Phạt Nhân Viên</a>
 							</router-link>
 						</li>
-						<li> 
+						<li>
 							<router-link to="/admin/thong-ke-diem-thuong">
-								<a class="dropdown-item" href="/admin/thong-ke-diem-thuong"><i class="bx bx-right-arrow-alt"></i>Thống Kê Điểm Thưởng Nhân Viên</a>
+								<a class="dropdown-item" href="/admin/thong-ke-diem-thuong"><i
+										class="bx bx-right-arrow-alt"></i>Thống Kê Điểm Thưởng Nhân Viên</a>
 							</router-link>
 						</li>
 					</ul>

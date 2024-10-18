@@ -33,7 +33,7 @@
         </div>
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mt-1"><b>Bảng Chấm Công</b></h5>
@@ -72,41 +72,6 @@
                                             </td>
                                         </tr>
                                     </template>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="fw-bold">Bảng Lương</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="align-middle">
-                                        <th class="text-center">#</th>
-                                        <th class="text-center">Số Ca Sáng</th>
-                                        <th class="text-center">Số Ca Chiều</th>
-                                        <th class="text-center">Số Ca Tối</th>
-                                        <th class="text-center">Tổng Số Buổi</th>
-                                        <th class="text-center">Thưởng/Phạt</th>
-                                        <th class="text-center">KPI</th>
-                                        <th class="text-center">Tiền Thực Nhận</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="align-middle">
-                                        <th class="text-center">1</th>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">2</td>
-                                        <td class="text-center">7</td>
-                                        <td class="text-center">100 điểm</td>
-                                        <td class="text-center">500 điểm</td>
-                                        <td class="text-end">10.000.000 đ</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

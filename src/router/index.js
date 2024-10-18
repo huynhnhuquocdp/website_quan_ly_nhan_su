@@ -43,6 +43,10 @@ const routes = [
         component: () => import('../components/Admin/ChamCong/index.vue')
     },
     {
+        path: '/admin/luong',
+        component: () => import('../components/Admin/Luong/index.vue')
+    },
+    {
         path: '/admin/kpi-nhan-vien',
         component: () => import('../components/Admin/KPINhanVien/index.vue')
     },
