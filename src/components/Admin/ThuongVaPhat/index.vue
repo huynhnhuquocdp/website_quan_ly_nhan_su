@@ -237,6 +237,12 @@ export default {
                         this.$toast.error(res.data.message);
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
 
         updateThuongVaPhat() {
@@ -251,6 +257,12 @@ export default {
                         this.$toast.error(res.data.message);
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
 
         delThuongVaPhat() {
@@ -265,6 +277,12 @@ export default {
                         this.$toast.error(res.data.message);
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         TimKiemThuongVaPhat() {
             axios

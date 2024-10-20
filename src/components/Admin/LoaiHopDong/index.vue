@@ -196,6 +196,12 @@ export default {
                         this.create_loai_hop_dong = {};
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         capNhatLoaiHopDong() {
             axios
@@ -206,6 +212,12 @@ export default {
                         this.loadLoaiHopDong();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         xoaLoaiHopDong() {
@@ -217,6 +229,12 @@ export default {
                         this.loadLoaiHopDong();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         changeStatus(value) {
@@ -228,6 +246,12 @@ export default {
                         this.loadLoaiHopDong();
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         }
     }
 }

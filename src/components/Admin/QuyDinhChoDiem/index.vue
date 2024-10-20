@@ -242,6 +242,12 @@ export default {
                         this.create_quy_dinh_cho_diem = {};
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         },
         capNhatQuyDinhChoDiem() {
             axios
@@ -252,6 +258,12 @@ export default {
                         this.loadQuyDinhChoDiem();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         xoaQuyDinhChoDiem() {
@@ -263,6 +275,12 @@ export default {
                         this.loadQuyDinhChoDiem();
                     };
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
 
         },
         changeStatus(value) {
@@ -274,6 +292,12 @@ export default {
                         this.loadQuyDinhChoDiem();
                     }
                 })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
         }
     }
 }
