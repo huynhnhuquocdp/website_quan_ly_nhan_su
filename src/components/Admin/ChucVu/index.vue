@@ -4,6 +4,7 @@
             <div class="card ">
                 <div class="card-header mt-2">
                     <h5><b> Thêm Mới Chức Vụ </b></h5>
+
                 </div>
                 <div class="card-body">
                     <label class="form-lable">Tên Chức Vụ</label>
@@ -21,8 +22,9 @@
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header mt-2">
+                <div class="card-header mt-2 d-flex justify-content-between align-items-center">
                     <h5><b>Danh Sách Chức Vụ</b></h5>
+                    <button @click="xuatExcel()" class="btn btn-success"><i class="fa-regular fa-file-excel"></i> Xuất Excel</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -81,8 +83,8 @@
                                         </div>
                                         <div class="ms-1">
                                             <h6 class="mb-1 text-white">Bạn chắc chắc xóa chức vụ <b>{{
-                        delete_chuc_vu.ten_chuc_vu
-                    }}</b> này chứ
+                                                    delete_chuc_vu.ten_chuc_vu
+                                                    }}</b> này chứ
                                                 !!!</h6>
                                             <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
                                                 phục
@@ -150,6 +152,18 @@ export default {
         this.loadChucVu();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/chuc-vu/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'chuc_vu.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadChucVu() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/chuc-vu/data')

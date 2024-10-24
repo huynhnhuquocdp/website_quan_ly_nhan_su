@@ -39,8 +39,11 @@
         </div>
         <div class="col-lg-8">
             <div class='card border-top border-0 border-4 border-primary'>
-                <div class='card-header'>
+                <div class='card-header d-flex justify-content-between align-items-center'>
                     <h5>Danh Sách Phòng Ban</h5>
+                    <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                        <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
                 <div class='card-body'>
                     <table class='table table-bordered'>
@@ -101,8 +104,8 @@
                                 </div>
                                 <div class=" mb-3">
                                     <label class="mb-2"> Phòng Ban Cha</label>
-                                    <input v-model="edit_phong_ban.id_phong_ban_cha" type="number"
-                                        class="form-control" placeholder="">
+                                    <input v-model="edit_phong_ban.id_phong_ban_cha" type="number" class="form-control"
+                                        placeholder="">
                                 </div>
                                 <div class=" mb-3">
                                     <label class="mb-2">Trưởng Phòng</label>
@@ -120,7 +123,8 @@
                             </div>
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                <button @click="capNhatPhongBan()" type='button' class='btn btn-primary' data-bs-dismiss='modal'>Xác
+                                <button @click="capNhatPhongBan()" type='button' class='btn btn-primary'
+                                    data-bs-dismiss='modal'>Xác
                                     Nhận</button>
                             </div>
                         </div>
@@ -141,7 +145,8 @@
                                         <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                                         </div>
                                         <div class="ms-1">
-                                            <h6 class="mb-1 text-white">Bạn chắc chắc xóa phòng ban <b>{{ delete_phong_ban.ten_phong_ban }}</b> này chứ
+                                            <h6 class="mb-1 text-white">Bạn chắc chắc xóa phòng ban <b>{{
+                                                delete_phong_ban.ten_phong_ban }}</b> này chứ
                                                 !!!</h6>
                                             <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
                                                 phục
@@ -153,7 +158,8 @@
                             </div>
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                <button @click="xoaPhongBan()" type='button' class='btn btn-danger' data-bs-dismiss='modal'>Xóa</button>
+                                <button @click="xoaPhongBan()" type='button' class='btn btn-danger'
+                                    data-bs-dismiss='modal'>Xóa</button>
                             </div>
                         </div>
                     </div>
@@ -178,6 +184,18 @@ export default {
         this.loadPhongBan();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/phong-ban/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'phong_ban.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadPhongBan() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/phong-ban/data')

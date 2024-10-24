@@ -4,18 +4,26 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center mt-2">
                     <h6><b>DANH SÁCH NHÂN VIÊN</b></h6>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Thêm Mới
-                    </button>
+                    <div>
+                        <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                            <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Thêm Mới
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body table-responsive">
-                    <div class="input-group mt-3 w-100">
-                        <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" type="text" class="form-control search-control border border-1 border-secondary"
-                                placeholder="Search...">
+                    <div class="input-group mt-3 w-100 mb-3">
+                        <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" type="text"
+                            class="form-control search-control border border-1 border-secondary"
+                            placeholder="Search...">
                         <span class="position-absolute top-50 search-show translate-middle-y" style="left: 15px;"><i
                                 class="bx bx-search"></i></span>
-                        <button v-on:click="TimKiemBE()" class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm
-                                Kiếm</button>
+                        <button v-on:click="TimKiemBE()" class="btn btn-outline-secondary" type="button"
+                            id="button-addon2">Tìm
+                            Kiếm</button>
                     </div>
                     <table class="table table-bordered table-hover ">
                         <thead>
@@ -51,8 +59,8 @@
                                                 Động</button>
                                         </template>
                                         <template v-else>
-                                            <button v-on:click="changeStatus(v)"
-                                                class="btn btn-danger w-100">Tạm Khóa</button>
+                                            <button v-on:click="changeStatus(v)" class="btn btn-danger w-100">Tạm
+                                                Khóa</button>
                                         </template>
                                     </td>
                                     <td class="align-middle text-center">
@@ -128,7 +136,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button v-on:click="createNhanVien()" class="btn btn-primary" data-bs-dismiss="modal">Thêm Mới</button>
+                        <button v-on:click="createNhanVien()" class="btn btn-primary" data-bs-dismiss="modal">Thêm
+                            Mới</button>
                     </div>
                 </div>
             </div>
@@ -142,19 +151,20 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
-                                    <div class="d-flex align-items-center">
-                                        <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
-                                        </div>
-                                        <div class="ms-1">
-                                            <h6 class="mb-1 text-white">Bạn chắc chắc xóa nhân viên <b>{{ delete_nhan_vien.ho_va_ten }}</b> này chứ
-                                                !!!</h6>
-                                            <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
-                                                phục
-                                                khi ấn xác nhận
-                                            </div>
-                                        </div>
+                            <div class="d-flex align-items-center">
+                                <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                </div>
+                                <div class="ms-1">
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa nhân viên <b>{{
+                                            delete_nhan_vien.ho_va_ten }}</b> này chứ
+                                        !!!</h6>
+                                    <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
+                                        phục
+                                        khi ấn xác nhận
                                     </div>
                                 </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -234,7 +244,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <label class="form-label fw-bold">Chọn Hợp Đồng</label>
-                                <select v-model="create_hop_dong.id_loai_hop_dong" v-on:change="loadNoiDung()" class="form-control">
+                                <select v-model="create_hop_dong.id_loai_hop_dong" v-on:change="loadNoiDung()"
+                                    class="form-control">
                                     <template v-for="(v, k) in list_hop_dong" :key="k">
                                         <option v-bind:value="v.id">{{ v.ten_hop_dong }}</option>
                                     </template>
@@ -243,7 +254,8 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-lg-12">
-                                <textarea v-model="create_hop_dong.noi_dung" class="form-control" cols="30" rows="10"></textarea>
+                                <textarea v-model="create_hop_dong.noi_dung" class="form-control" cols="30"
+                                    rows="10"></textarea>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -295,6 +307,18 @@ export default {
         this.loadHopDong();
     },
     methods: {
+        xuatExcel() {
+            axios 
+                .get('http://127.0.0.1:8000/api/admin/nhan-vien/xuat-excel', { responseType: 'blob'})
+                .then((res) =>{
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'nhan_vien.xlsx'); 
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadNoiDung() {
             this.list_hop_dong.forEach((v, k) => {
                 if (v.id == this.create_hop_dong.id_loai_hop_dong) {

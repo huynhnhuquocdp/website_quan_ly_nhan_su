@@ -24,8 +24,11 @@
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header mt-2">
+                <div class="card-header mt-2 d-flex justify-content-between align-items-center">
                     <h5><b>Danh Sách Loại Hợp Đồng</b></h5>
+                    <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                        <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -44,8 +47,10 @@
                                     <tr>
                                         <th class="text-center align-middle text-nowrap">{{ k + 1 }}</th>
                                         <td class="align-middle text-nowrap">{{ v.ten_hop_dong }}</td>
-                                        <td class="align-middle text-nowrap text-center" data-bs-toggle="modal" data-bs-target="#noi_dung">
-                                            <i v-on:click="noi_dung_hop_dong = v.noi_dung" class="fa-solid fa-file-contract fa-xl"></i>
+                                        <td class="align-middle text-nowrap text-center" data-bs-toggle="modal"
+                                            data-bs-target="#noi_dung">
+                                            <i v-on:click="noi_dung_hop_dong = v.noi_dung"
+                                                class="fa-solid fa-file-contract fa-xl"></i>
                                         </td>
                                         <td class="align-middle text-nowrap text-center">
                                             <template v-if="v.tinh_trang == 1">
@@ -179,6 +184,18 @@ export default {
         this.loadLoaiHopDong();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'loai_hop_dong.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadLoaiHopDong() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/data')
