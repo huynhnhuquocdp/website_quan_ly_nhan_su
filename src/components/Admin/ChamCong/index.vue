@@ -35,8 +35,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mt-1"><b>Bảng Chấm Công</b></h5>
+                            <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                                <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                            </button>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered table-hover mt-2">
@@ -58,7 +61,7 @@
                                             <td class="align-middle">{{ value.ten_phong_ban }}</td>
                                             <td class="align-middle text-center">{{ value.ngay_lam_viec }}</td>
                                             <td class="align-middle text-center"> {{ value.ca_lam == 1 ? "Ca Sáng" :
-                                (value.ca_lam == 2 ? "Ca Chiều" : "Ca Tối") }} </td>
+                                                (value.ca_lam == 2 ? "Ca Chiều" : "Ca Tối") }} </td>
                                             <td class="align-middle text-center">
                                                 <button class="btn btn-primary me-2" data-bs-toggle="modal"
                                                     v-on:click="Object.assign(update, value)"
@@ -94,7 +97,7 @@
                                 </div>
                                 <div class="ms-1">
                                     <h6 class="mb-1 text-white">
-                                        Bạn chắc chắc xóa bảng chấm công của  <b>{{ del.ho_va_ten }}</b>
+                                        Bạn chắc chắc xóa bảng chấm công của <b>{{ del.ho_va_ten }}</b>
                                         chứ !!!
                                     </h6>
                                     <div class="text-white text-nowrap">
@@ -109,8 +112,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                            v-on:click="xoaChamCong()">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-on:click="xoaChamCong()">
                             Xác nhận
                         </button>
                     </div>
@@ -180,6 +182,18 @@ export default {
         this.loadDataChamCong();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/cham-cong/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'cham_cong.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadDataNhanVien() {
             axios
                 .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open")

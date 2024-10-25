@@ -34,12 +34,12 @@
                         </select>
                     </div>
                     <div class="mb-2">
-                            <label class="form-label">Tình Trạng</label>
-                            <select v-model="create_quy_dinh_cho_diem.tinh_trang" class="form-control">
-                                <option value="0">Tạm Tắt</option>
-                                <option value="1">Hiển Thị</option>
-                            </select>
-                        </div>
+                        <label class="form-label">Tình Trạng</label>
+                        <select v-model="create_quy_dinh_cho_diem.tinh_trang" class="form-control">
+                            <option value="0">Tạm Tắt</option>
+                            <option value="1">Hiển Thị</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="card-footer text-end">
                     <button @click="createQuyDinhChoDiem()" class="btn btn-primary">Thêm Mới</button>
@@ -48,8 +48,11 @@
         </div>
         <div class="col-lg-9">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mt-2"><b>DANH SÁCH QUY ĐỊNH ĐIỂM</b></h5>
+                    <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                        <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -165,7 +168,8 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button @click="capNhatQuyDinhChoDiem()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <button @click="capNhatQuyDinhChoDiem()" type="button" class="btn btn-primary"
+                            data-bs-dismiss="modal">
                             Cập nhật
                         </button>
                     </div>
@@ -187,7 +191,8 @@
                                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                                 </div>
                                 <div class="ms-1">
-                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa quy định cho điểm <b>{{ delete_quy_dinh_cho_diem.ma_so }}</b> này chứ
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa quy định cho điểm <b>{{
+                                            delete_quy_dinh_cho_diem.ma_so }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
                                         khi ấn xác nhận
@@ -200,7 +205,8 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button @click="xoaQuyDinhChoDiem()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <button @click="xoaQuyDinhChoDiem()" type="button" class="btn btn-danger"
+                            data-bs-dismiss="modal">
                             Xóa
                         </button>
                     </div>
@@ -225,6 +231,18 @@ export default {
         this.loadQuyDinhChoDiem();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'quy_dinh_cho_diem.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadQuyDinhChoDiem() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data')

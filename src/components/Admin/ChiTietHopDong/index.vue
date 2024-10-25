@@ -2,8 +2,11 @@
     <div class="row">
         <div class="col-lg-12">
             <div class='card border-top border-0 border-4 border-primary'>
-                <div class='card-header'>
+                <div class='card-header d-flex justify-content-between align-items-center'>
                     <h5>Hợp Đồng Nhân Viên</h5>
+                    <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                        <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
                 <div class='card-body'>
                     <table class='table table-bordered'>
@@ -24,8 +27,10 @@
                                     <th class='align-middle'>{{ k + 1 }}</th>
                                     <td class='align-middle'>{{ v.ho_va_ten }}</td>
                                     <td class='align-middle'>{{ v.ten_hop_dong }}</td>
-                                    <td class="align-middle text-nowrap text-center" data-bs-toggle="modal" data-bs-target="#noi_dung">
-                                        <i v-on:click="noi_dung_hop_dong = v.noi_dung" class="fa-solid fa-file-contract fa-xl"></i>
+                                    <td class="align-middle text-nowrap text-center" data-bs-toggle="modal"
+                                        data-bs-target="#noi_dung">
+                                        <i v-on:click="noi_dung_hop_dong = v.noi_dung"
+                                            class="fa-solid fa-file-contract fa-xl"></i>
                                     </td>
                                     <td class='align-middle'>{{ v.ngay_bat_dau }} </td>
                                     <td class='align-middle'>{{ v.ngay_ket_thuc }}</td>
@@ -69,6 +74,18 @@ export default {
         this.loadChamCong();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'chi_tiet_hop_dong.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadChamCong() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/data')

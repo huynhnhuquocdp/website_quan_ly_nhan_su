@@ -33,8 +33,11 @@
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="card">
-                <div class="card-header mt-2">
+                <div class="card-header mt-2 d-flex justify-content-between align-items-center">
                     <h5>Danh Sách Tiêu Chí KPI</h5>
+                    <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                        <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class='table-responsive'>
@@ -113,7 +116,8 @@
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Đóng</button>
-                        <button @click="capNhatTieuChiKPI()" type='button' class='btn btn-primary' data-bs-dismiss='modal'>Xác Nhận</button>
+                        <button @click="capNhatTieuChiKPI()" type='button' class='btn btn-primary'
+                            data-bs-dismiss='modal'>Xác Nhận</button>
                     </div>
                 </div>
             </div>
@@ -132,7 +136,8 @@
                                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                                 </div>
                                 <div class="ms-1">
-                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa tiêu chí <b>{{ delete_tieu_chi_kpi.ten_tieu_chi }}</b> này chứ
+                                    <h6 class="mb-1 text-white">Bạn chắc chắc xóa tiêu chí <b>{{
+                                            delete_tieu_chi_kpi.ten_tieu_chi }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
                                         khi ấn xác nhận
@@ -143,7 +148,8 @@
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Đóng</button>
-                        <button @click="xoaTieuChiKPI()" type='button' class='btn btn-danger' data-bs-dismiss='modal'>Xác Nhận</button>
+                        <button @click="xoaTieuChiKPI()" type='button' class='btn btn-danger'
+                            data-bs-dismiss='modal'>Xác Nhận</button>
                     </div>
                 </div>
             </div>
@@ -166,6 +172,18 @@ export default {
         this.loadTieuChiKPI();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'tieu_chi_kpi.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadTieuChiKPI() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/data')

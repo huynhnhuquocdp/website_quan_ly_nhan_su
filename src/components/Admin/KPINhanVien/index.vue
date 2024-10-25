@@ -4,17 +4,25 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center mt-2">
                     <h6><b>DANH SÁCH KPI NHÂN VIÊN</b></h6>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themMoiModal">
-                        Thêm Mới
-                    </button>
+                    <div>
+                        <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                            <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#themMoiModal">
+                            Thêm Mới
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body table-responsive">
                     <div class="input-group mt-3 w-100">
-                        <input type="text" v-model="search.noi_dung" class="form-control search-control border border-1 border-secondary"
+                        <input type="text" v-model="search.noi_dung"
+                            class="form-control search-control border border-1 border-secondary"
                             placeholder="Search..." />
                         <span class="position-absolute top-50 search-show translate-middle-y" style="left: 15px"><i
                                 class="bx bx-search"></i></span>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" v-on:click="TimKiemKpiNhanVien()">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                            v-on:click="TimKiemKpiNhanVien()">
                             Tìm Kiếm
                         </button>
                     </div>
@@ -129,7 +137,8 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Đóng
                         </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-on:click="xoaDiemKpiNhanVien()">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            v-on:click="xoaDiemKpiNhanVien()">
                             Xác nhận
                         </button>
                     </div>
@@ -226,6 +235,18 @@ export default {
         this.loadDataKpiNhanVien();
     },
     methods: {
+        xuatExcel() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'kpi_nhan_vien.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
         loadDataNhanVien() {
             axios
                 .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open")
