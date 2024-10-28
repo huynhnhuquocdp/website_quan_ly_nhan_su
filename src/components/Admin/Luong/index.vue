@@ -21,8 +21,11 @@
         </div>
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center mt-2">
                     <h5 class="fw-bold">Bảng Lương</h5>
+                    <button @click="xuatExcel()" type="button" class="btn btn-success me-2">
+                        <i class="fa-regular fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -48,8 +51,8 @@
                                     <td class="text-center">{{ value.ca_chieu }}</td>
                                     <td class="text-center">{{ value.ca_toi }}</td>
                                     <td class="text-center">{{ value.ca_sang + value.ca_chieu + value.ca_toi }}</td>
-                                    <td class="text-center">{{ value.thuong - value.phat }} điểm</td>
-                                    <td class="text-center">{{ value.diem_KPI }} điểm</td>
+                                    <td class="">{{ value.thuong - value.phat }} điểm</td>
+                                    <td class="">{{ value.diem_KPI }} điểm</td>
                                     <td class="text-end">{{ formatVND(value) }}</td>
                                 </tr>
                             </template>
@@ -88,7 +91,19 @@ export default {
                 .then((res) => {
                     this.list = res.data.data
                 })
-        }
+        },
+        xuatExcel() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/luong/xuat-excel', this.tinh_luong, { responseType: 'blob' })
+                .then((res) => {
+                    const url = window.URL.createObjectURL(new Blob([res.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'luong.xlsx');
+                    document.body.appendChild(link);
+                    link.click();
+                });
+        },
 
     },
 }
