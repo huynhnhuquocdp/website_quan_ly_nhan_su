@@ -46,13 +46,15 @@
                             <template v-for="(value, index) in list" :key="index">
                                 <tr class="align-middle">
                                     <th class="text-center">{{ index + 1 }}</th>
-                                    <td class="">{{ value.ho_va_ten }}</td>
+                                    <th class="text-center">{{ value.ho_va_ten }}</th>
                                     <td class="text-center">{{ value.ca_sang }}</td>
                                     <td class="text-center">{{ value.ca_chieu }}</td>
                                     <td class="text-center">{{ value.ca_toi }}</td>
                                     <td class="text-center">{{ value.ca_sang + value.ca_chieu + value.ca_toi }}</td>
-                                    <td class="">{{ value.thuong - value.phat }} điểm</td>
-                                    <td class="">{{ value.diem_KPI }} điểm</td>
+                                    <td class="">{{ value.thuong - value.phat }} điểm = {{ formatDiem((value.thuong -
+                                        value.phat) * 10000) }}</td>
+                                    <td class="">{{ value.diem_KPI }} điểm = {{ formatDiem((value.diem_KPI) * 10000) }}
+                                    </td>
                                     <td class="text-end">{{ formatVND(value) }}</td>
                                 </tr>
                             </template>
@@ -83,6 +85,10 @@ export default {
             var tinh_tien = (value.ca_sang + value.ca_chieu + value.ca_toi) / 24 + (value.thuong -
                 value.phat) * 10000 + (value.diem_KPI * 20000)
             return new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(tinh_tien,
+            )
+        },
+        formatDiem(value) {
+            return new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(value,
             )
         },
         tinhLuong() {
