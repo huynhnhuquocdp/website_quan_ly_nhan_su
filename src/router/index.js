@@ -11,6 +11,10 @@ const routes = [
         meta: { layout: "blank" },
     },
     {
+        path : '/admin/profile',
+        component: ()=>import('../components/Admin/Profile/index.vue')
+    },
+    {
         path : '/admin/nhan-vien',
         component: ()=>import('../components/Admin/NhanVien/index.vue')
     },
