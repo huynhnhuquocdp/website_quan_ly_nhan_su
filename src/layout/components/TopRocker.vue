@@ -373,8 +373,12 @@
 							<a class="dropdown-item" href="/admin/profile"><i class="bx bx-user"></i><span>Profile</span></a>
 						</router-link>
 					</li>
+					<li>
+						<a class="dropdown-item" href="javascript:;"><i
+								class='bx bx-log-out-circle'></i><span>Đăng Xuất</span></a>
+					</li>
 					<li><a class="dropdown-item" href="javascript:;"><i
-								class='bx bx-log-out-circle'></i><span>Logout</span></a>
+								class='bx bx-log-out-circle'></i><span>Đăng Xuất Tất Cả</span></a>
 					</li>
 				</ul>
 			</div>
@@ -382,8 +386,19 @@
 	</div>
 </template>
 <script>
+import axios from 'axios';
 export default {
-
+	data() {
+		return {
+			
+		}
+	},
+	mounted() {
+		
+	},
+	methods: {
+		
+	},
 }
 </script>
 <style></style>
