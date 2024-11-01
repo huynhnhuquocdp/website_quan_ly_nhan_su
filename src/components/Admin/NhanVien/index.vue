@@ -64,6 +64,9 @@
                                         </template>
                                     </td>
                                     <td class="align-middle text-center">
+                                        <button class="btn btn-warning me-2" data-bs-toggle="modal"
+                                            data-bs-target="#phanQuyenModal" v-on:click="loadChucNang(v)">Phân
+                                            Quyền</button>
                                         <button class="btn btn-info me-2" data-bs-toggle="modal"
                                             data-bs-target="#hopDongModal"
                                             v-on:click="Object.assign(create_hop_dong, v)">Tạo Hợp Đồng</button>
@@ -175,6 +178,50 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="phanQuyenModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Phân Quyền Cho Nhân Viên {{
+                            phan_quyen_nhan_vien.ho_va_ten }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class='table table-bordered table-hover'>
+                            <thead>
+                                <tr>
+                                    <th class='align-middle text-center'>#</th>
+                                    <th class='align-middle text-center'>Tên Chức Năng</th>
+                                    <th class='align-middle text-center'>Trạng Thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="(v, k) in list_chuc_nang" :key="k">
+                                    <tr>
+                                        <th class="text-center align-middle">
+                                            {{ k + 1 }}
+                                        </th>
+                                        <td class="align-middle">
+                                            {{ v.ten_chuc_nang }}
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <button v-if="v.is_phan_quyen == 1" class="btn btn-primary">Đã Phân
+                                                Quyền</button>
+                                            <button v-else v-on:click="setQuyen(v)" class="btn btn-danger">Chưa Phân
+                                                Quyền</button>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="capnhatDM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -276,7 +323,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            v-on:click="taoHopDong()">Tạo Hợp Đồng</button>
+                            v-on:click="taoHopDong()">Tạo Hợp
+                            Đồng</button>
                     </div>
                 </div>
             </div>
@@ -297,6 +345,8 @@ export default {
             list_hop_dong: [],
             search: {},
             create_hop_dong: {},
+            phan_quyen_nhan_vien: {},
+            list_chuc_nang: [],
         }
 
     },
@@ -307,14 +357,39 @@ export default {
         this.loadHopDong();
     },
     methods: {
+        setQuyen(value) {
+            value.id_nhan_vien = this.phan_quyen_nhan_vien.id
+            axios
+                .post('http://127.0.0.1:8000/api/admin/phan-quyen/create', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadChucNang(this.phan_quyen_nhan_vien);
+                    }
+                })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
+        },
+        loadChucNang(value) {
+            this.phan_quyen_nhan_vien = value;
+            axios
+                .post('http://127.0.0.1:8000/api/admin/chuc-nang/data', this.phan_quyen_nhan_vien)
+                .then((res) => {
+                    this.list_chuc_nang = res.data.data;
+                })
+        },
         xuatExcel() {
-            axios 
-                .get('http://127.0.0.1:8000/api/admin/nhan-vien/xuat-excel', { responseType: 'blob'})
-                .then((res) =>{
+            axios
+                .get('http://127.0.0.1:8000/api/admin/nhan-vien/xuat-excel', { responseType: 'blob' })
+                .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download', 'nhan_vien.xlsx'); 
+                    link.setAttribute('download', 'nhan_vien.xlsx');
                     document.body.appendChild(link);
                     link.click();
                 });
