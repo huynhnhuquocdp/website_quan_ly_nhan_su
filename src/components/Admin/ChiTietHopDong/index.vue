@@ -23,8 +23,8 @@
                         </thead>
                         <tbody>
                             <template v-for="(v, k) in list_chi_tiet_hop_dong" :key="k">
-                                <tr class='align-middle text-center'>
-                                    <th class='align-middle'>{{ k + 1 }}</th>
+                                <tr class='align-middle'>
+                                    <th class='align-middle  text-center'>{{ k + 1 }}</th>
                                     <td class='align-middle'>{{ v.ho_va_ten }}</td>
                                     <td class='align-middle'>{{ v.ten_hop_dong }}</td>
                                     <td class="align-middle text-nowrap text-center" data-bs-toggle="modal"
@@ -32,9 +32,9 @@
                                         <i v-on:click="noi_dung_hop_dong = v.noi_dung"
                                             class="fa-solid fa-file-contract fa-xl"></i>
                                     </td>
-                                    <td class='align-middle'>{{ v.ngay_bat_dau }} </td>
-                                    <td class='align-middle'>{{ v.ngay_ket_thuc }}</td>
-                                    <td class='align-middle'>{{ v.ngay_ky }}</td>
+                                    <td class='align-middle text-center'>{{ v.ngay_bat_dau }} </td>
+                                    <td class='align-middle text-center'>{{ v.ngay_ket_thuc }}</td>
+                                    <td class='align-middle text-center'>{{ v.ngay_ky }}</td>
                                 </tr>
                             </template>
                         </tbody>

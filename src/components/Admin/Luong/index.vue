@@ -53,7 +53,7 @@
                                     <td class="text-center">{{ value.ca_sang + value.ca_chieu + value.ca_toi }}</td>
                                     <td class="">{{ value.thuong - value.phat }} điểm = {{ formatDiem((value.thuong -
                                         value.phat) * 10000) }}</td>
-                                    <td class="">{{ value.diem_KPI }} điểm = {{ formatDiem((value.diem_KPI) * 10000) }}
+                                    <td class="">{{ value.diem_KPI }} điểm = {{ formatDiem((value.diem_KPI) * 20000) }}
                                     </td>
                                     <td class="text-end">{{ formatVND(value) }}</td>
                                 </tr>
@@ -82,8 +82,8 @@ export default {
     },
     methods: {
         formatVND(value) {
-            var tinh_tien = (value.ca_sang + value.ca_chieu + value.ca_toi) / 24 + (value.thuong -
-                value.phat) * 10000 + (value.diem_KPI * 20000)
+            var tinh_tien = (value.ca_sang + value.ca_chieu + value.ca_toi) / 24 + ((value.thuong -
+                value.phat) * 10000) + (value.diem_KPI * 20000);
             return new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(tinh_tien,
             )
         },
