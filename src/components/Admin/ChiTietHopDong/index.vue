@@ -71,7 +71,7 @@ export default {
 
     },
     mounted() {
-        this.loadChamCong();
+        this.loadChiTietHopDong();
     },
     methods: {
         xuatExcel() {
@@ -86,11 +86,18 @@ export default {
                     link.click();
                 });
         },
-        loadChamCong() {
+        loadChiTietHopDong() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/data')
+                .get('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_chi_tiet_hop_dong = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
     }

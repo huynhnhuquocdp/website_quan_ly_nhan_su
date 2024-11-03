@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="ms-1">
                                             <h6 class="mb-1 text-white">Bạn chắc chắc xóa Loại Hợp Đồng <b>{{
-                                                    delete_loai_hop_dong.ten_hop_dong }}</b> này chứ
+                                                delete_loai_hop_dong.ten_hop_dong }}</b> này chứ
                                                 !!!</h6>
                                             <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
                                                 phục
@@ -198,19 +198,32 @@ export default {
         },
         loadLoaiHopDong() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/data')
+                .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_loai_hop_dong = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         createLoaiHopDong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/create', this.create_loai_hop_dong)
+                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/create', this.create_loai_hop_dong, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadLoaiHopDong();
                         this.create_loai_hop_dong = {};
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -222,12 +235,18 @@ export default {
         },
         capNhatLoaiHopDong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/update', this.edit_loai_hop_dong)
+                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/update', this.edit_loai_hop_dong, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadLoaiHopDong();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -239,12 +258,18 @@ export default {
         },
         xoaLoaiHopDong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/delete', this.delete_loai_hop_dong)
+                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/delete', this.delete_loai_hop_dong, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadLoaiHopDong();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -256,11 +281,17 @@ export default {
         },
         changeStatus(value) {
             axios
-                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/change-status', value)
+                .post('http://127.0.0.1:8000/api/admin/loai-hop-dong/change-status', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadLoaiHopDong();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {

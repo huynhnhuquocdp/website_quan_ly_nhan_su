@@ -249,26 +249,47 @@ export default {
         },
         loadDataNhanVien() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open")
+                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_nhan_vien = res.data.data;
                 });
         },
         loadDataKpi() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/tieu-chi-kpi/data-open")
+                .get("http://127.0.0.1:8000/api/admin/tieu-chi-kpi/data-open", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_tieu_chi_kpi = res.data.data;
                 });
         },
         loadDataKpiNhanVien() {
-            axios.get("http://127.0.0.1:8000/api/admin/kpi-nhan-vien/data").then((res) => {
-                this.list_kpi_nhan_vien = res.data.data;
-            });
+            axios
+                .get("http://127.0.0.1:8000/api/admin/kpi-nhan-vien/data", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
+                .then((res) => {
+                    this.list_kpi_nhan_vien = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
+                });
         },
         themMoi() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/create', this.create)
+                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/create', this.create, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
@@ -288,7 +309,11 @@ export default {
         },
         upDateKpiNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/update', this.update)
+                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/update', this.update, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
@@ -307,7 +332,11 @@ export default {
         },
         chamDiemKpiNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/cham-diem', this.update)
+                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/cham-diem', this.update, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
@@ -326,7 +355,11 @@ export default {
         },
         xoaDiemKpiNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/delete', this.del)
+                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/delete', this.del, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
@@ -346,7 +379,11 @@ export default {
         },
         TimKiemKpiNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/tim-kiem', this.search)
+                .post('http://127.0.0.1:8000/api/admin/kpi-nhan-vien/tim-kiem', this.search, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_kpi_nhan_vien = res.data.data
                 })

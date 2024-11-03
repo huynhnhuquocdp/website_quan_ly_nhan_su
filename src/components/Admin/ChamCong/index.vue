@@ -196,22 +196,37 @@ export default {
         },
         loadDataNhanVien() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open")
+                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_nhan_vien = res.data.data;
                 });
         },
         loadDataChamCong() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/cham-cong/data")
+                .get("http://127.0.0.1:8000/api/admin/cham-cong/data", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_cham_cong = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 });
         },
 
         themMoi() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/cham-cong/create', this.create)
+                .post('http://127.0.0.1:8000/api/admin/cham-cong/create', this.create, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
@@ -231,7 +246,11 @@ export default {
         },
         updateChamCong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/cham-cong/update', this.update)
+                .post('http://127.0.0.1:8000/api/admin/cham-cong/update', this.update, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
@@ -250,7 +269,11 @@ export default {
         },
         xoaChamCong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/cham-cong/delete', this.del)
+                .post('http://127.0.0.1:8000/api/admin/cham-cong/delete', this.del, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);

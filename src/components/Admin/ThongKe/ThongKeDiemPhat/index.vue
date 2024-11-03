@@ -101,12 +101,19 @@ export default {
         thongKe() {
             this.is_load = false
             axios
-                .post('http://127.0.0.1:8000/api/admin/diem-phat/thong-ke', this.day)
+                .post('http://127.0.0.1:8000/api/admin/diem-phat/thong-ke', this.day, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_diem_phat = res.data.data;
                     this.chartData.labels = res.data.ten_nhan_vien;
                     this.chartData.datasets[0].data = res.data.tong_so_diem_phat;
-                    this.is_load = true
+                    this.is_load = true;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         }
     },

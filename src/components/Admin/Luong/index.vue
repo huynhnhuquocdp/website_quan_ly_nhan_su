@@ -93,9 +93,16 @@ export default {
         },
         tinhLuong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/tinh-luong', this.tinh_luong)
+                .post('http://127.0.0.1:8000/api/admin/tinh-luong', this.tinh_luong, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
-                    this.list = res.data.data
+                    this.list = res.data.data;
+                    if(res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         xuatExcel() {
