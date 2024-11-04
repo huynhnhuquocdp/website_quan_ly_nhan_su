@@ -240,6 +240,9 @@ export default {
                     }
                 })
                 .then((res) => {
+                    if (res.data.status == false) {
+                        this.$toast.error(res.data.message);
+                    }
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
                     link.href = url;
