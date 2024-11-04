@@ -107,7 +107,12 @@ export default {
         },
         xuatExcel() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/luong/xuat-excel', this.tinh_luong, { responseType: 'blob' })
+                .post('http://127.0.0.1:8000/api/admin/luong/xuat-excel', this.tinh_luong, {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
