@@ -186,7 +186,12 @@ export default {
     methods: {
         xuatExcel() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/phong-ban/xuat-excel', { responseType: 'blob' })
+                .get('http://127.0.0.1:8000/api/admin/phong-ban/xuat-excel', {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
@@ -198,19 +203,32 @@ export default {
         },
         loadPhongBan() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/phong-ban/data')
+                .get('http://127.0.0.1:8000/api/admin/phong-ban/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_phong_ban = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         createPhongBan() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/phong-ban/create', this.create_phong_ban)
+                .post('http://127.0.0.1:8000/api/admin/phong-ban/create', this.create_phong_ban, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadPhongBan();
                         this.create_phong_ban = {};
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -222,12 +240,18 @@ export default {
         },
         capNhatPhongBan() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/phong-ban/update', this.edit_phong_ban)
+                .post('http://127.0.0.1:8000/api/admin/phong-ban/update', this.edit_phong_ban, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadPhongBan();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -239,12 +263,18 @@ export default {
         },
         xoaPhongBan() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/phong-ban/delete', this.delete_phong_ban)
+                .post('http://127.0.0.1:8000/api/admin/phong-ban/delete', this.delete_phong_ban, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadPhongBan();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -256,11 +286,17 @@ export default {
         },
         changeStatus(value) {
             axios
-                .post('http://127.0.0.1:8000/api/admin/phong-ban/change-status', value)
+                .post('http://127.0.0.1:8000/api/admin/phong-ban/change-status', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadPhongBan();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {

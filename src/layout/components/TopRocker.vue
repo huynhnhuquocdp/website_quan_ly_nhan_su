@@ -374,10 +374,10 @@
 						</router-link>
 					</li>
 					<li>
-						<a class="dropdown-item" href="javascript:;"><i
+						<a v-on:click="dangXuat()" class="dropdown-item" href="javascript:;"><i
 								class='bx bx-log-out-circle'></i><span>Đăng Xuất</span></a>
 					</li>
-					<li><a class="dropdown-item" href="javascript:;"><i
+					<li><a v-on:click="dangXuatAll()" class="dropdown-item" href="javascript:;"><i
 								class='bx bx-log-out-circle'></i><span>Đăng Xuất Tất Cả</span></a>
 					</li>
 				</ul>
@@ -397,8 +397,22 @@ export default {
 		
 	},
 	methods: {
-		
+		dangXuat() {
+			axios
+                .get("http://127.0.0.1:8000/api/admin/dang-xuat")
+                .then((res) => {
+                    
+                });
+        },
+        dangXuatAll() {
+			axios
+                .get("http://127.0.0.1:8000/api/admin/dang-xuat-all")
+                .then((res) => {
+                    
+                });
+        }
 	},
+
 }
 </script>
 <style></style>

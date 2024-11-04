@@ -199,8 +199,8 @@ export default {
             list_quy_dinh: [],
             list_thuong_va_phat: [],
             create: {},
-            update : {},
-            del : {},
+            update: {},
+            del: {},
             search: {}
         };
     },
@@ -212,11 +212,16 @@ export default {
     methods: {
         xuatExcel() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/thuong-va-phat/xuat-excel', { responseType: 'blob' })
+                .get('http://127.0.0.1:8000/api/admin/thuong-va-phat/xuat-excel', {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
-                    link.href = url;    
+                    link.href = url;
                     link.setAttribute('download', 'thuong_va_phat.xlsx');
                     document.body.appendChild(link);
                     link.click();
@@ -224,7 +229,11 @@ export default {
         },
         loadDataNhanVien() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open")
+                .get("http://127.0.0.1:8000/api/admin/nhan-vien/data-open", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_nhan_vien = res.data.data;
                 });
@@ -232,7 +241,11 @@ export default {
 
         loadDataQuyDinh() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data-open")
+                .get("http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data-open", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_quy_dinh = res.data.data;
                 });
@@ -240,22 +253,32 @@ export default {
 
         loadDataThuongVaPhat() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/thuong-va-phat/data')
+                .get('http://127.0.0.1:8000/api/admin/thuong-va-phat/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
-                    this.list_thuong_va_phat = res.data.data
+                    this.list_thuong_va_phat = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 });
         },
 
         createThuongvaPhat() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/create', this.create)
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/create', this.create, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadDataThuongVaPhat();
                         this.create = {};
-                    }
-                    else {
+                    } else {
                         this.$toast.error(res.data.message);
                     }
                 })
@@ -269,13 +292,16 @@ export default {
 
         updateThuongVaPhat() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/update', this.update)
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/update', this.update, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadDataThuongVaPhat();
-                    }
-                    else {
+                    } else {
                         this.$toast.error(res.data.message);
                     }
                 })
@@ -289,13 +315,16 @@ export default {
 
         delThuongVaPhat() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/delete', this.del)
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/delete', this.del, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadDataThuongVaPhat();
-                    }
-                    else {
+                    } else {
                         this.$toast.error(res.data.message);
                     }
                 })
@@ -308,9 +337,16 @@ export default {
         },
         TimKiemThuongVaPhat() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/tim-kiem', this.search)
+                .post('http://127.0.0.1:8000/api/admin/thuong-va-phat/tim-kiem', this.search, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_thuong_va_phat = res.data.data
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
     },

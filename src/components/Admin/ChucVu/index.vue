@@ -24,7 +24,8 @@
             <div class="card">
                 <div class="card-header mt-2 d-flex justify-content-between align-items-center">
                     <h5><b>Danh Sách Chức Vụ</b></h5>
-                    <button @click="xuatExcel()" class="btn btn-success"><i class="fa-regular fa-file-excel"></i> Xuất Excel</button>
+                    <button @click="xuatExcel()" class="btn btn-success"><i class="fa-regular fa-file-excel"></i> Xuất
+                        Excel</button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -83,8 +84,8 @@
                                         </div>
                                         <div class="ms-1">
                                             <h6 class="mb-1 text-white">Bạn chắc chắc xóa chức vụ <b>{{
-                                                    delete_chuc_vu.ten_chuc_vu
-                                                    }}</b> này chứ
+                                                delete_chuc_vu.ten_chuc_vu
+                                            }}</b> này chứ
                                                 !!!</h6>
                                             <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
                                                 phục
@@ -154,7 +155,12 @@ export default {
     methods: {
         xuatExcel() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/chuc-vu/xuat-excel', { responseType: 'blob' })
+                .get('http://127.0.0.1:8000/api/admin/chuc-vu/xuat-excel', {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
@@ -166,19 +172,32 @@ export default {
         },
         loadChucVu() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/chuc-vu/data')
+                .get('http://127.0.0.1:8000/api/admin/chuc-vu/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_chuc_vu = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         createChucVu() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/chuc-vu/create', this.create_chuc_vu)
+                .post('http://127.0.0.1:8000/api/admin/chuc-vu/create', this.create_chuc_vu, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadChucVu();
                         this.create_chuc_vu = {};
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -190,12 +209,18 @@ export default {
         },
         capNhatChucVu() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/chuc-vu/update', this.edit_chuc_vu)
+                .post('http://127.0.0.1:8000/api/admin/chuc-vu/update', this.edit_chuc_vu, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadChucVu();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -207,12 +232,19 @@ export default {
         },
         xoaChucVu() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/chuc-vu/delete', this.delete_chuc_vu)
+                .post('http://127.0.0.1:8000/api/admin/chuc-vu/delete', this.delete_chuc_vu, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadChucVu();
-                    };
+                    }  else {
+                        this.$toast.error(res.data.message);
+                    }
+
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -224,11 +256,17 @@ export default {
         },
         changeStatus(value) {
             axios
-                .post('http://127.0.0.1:8000/api/admin/chuc-vu/change-status', value)
+                .post('http://127.0.0.1:8000/api/admin/chuc-vu/change-status', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadChucVu();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {

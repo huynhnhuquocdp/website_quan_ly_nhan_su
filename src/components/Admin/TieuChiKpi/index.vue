@@ -117,7 +117,8 @@
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Đóng</button>
                         <button @click="capNhatTieuChiKPI()" type='button' class='btn btn-primary'
-                            data-bs-dismiss='modal'>Xác Nhận</button>
+                            data-bs-dismiss='modal'>Xác
+                            Nhận</button>
                     </div>
                 </div>
             </div>
@@ -137,7 +138,7 @@
                                 </div>
                                 <div class="ms-1">
                                     <h6 class="mb-1 text-white">Bạn chắc chắc xóa tiêu chí <b>{{
-                                            delete_tieu_chi_kpi.ten_tieu_chi }}</b> này chứ
+                                        delete_tieu_chi_kpi.ten_tieu_chi }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
                                         khi ấn xác nhận
@@ -149,7 +150,8 @@
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Đóng</button>
                         <button @click="xoaTieuChiKPI()" type='button' class='btn btn-danger'
-                            data-bs-dismiss='modal'>Xác Nhận</button>
+                            data-bs-dismiss='modal'>Xác
+                            Nhận</button>
                     </div>
                 </div>
             </div>
@@ -174,7 +176,12 @@ export default {
     methods: {
         xuatExcel() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/xuat-excel', { responseType: 'blob' })
+                .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/xuat-excel', {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
@@ -186,19 +193,32 @@ export default {
         },
         loadTieuChiKPI() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/data')
+                .get('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_tieu_chi_kpi = res.data.data;
+                    if(res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         createTieuChiKPI() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/create', this.create_tieu_chi_kpi)
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/create', this.create_tieu_chi_kpi, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadTieuChiKPI();
                         this.create_tieu_chi_kpi = {};
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -210,12 +230,18 @@ export default {
         },
         capNhatTieuChiKPI() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/update', this.edit_tieu_chi_kpi)
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/update', this.edit_tieu_chi_kpi, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadTieuChiKPI();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -227,12 +253,18 @@ export default {
         },
         xoaTieuChiKPI() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/delete', this.delete_tieu_chi_kpi)
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/delete', this.delete_tieu_chi_kpi, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadTieuChiKPI();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -244,11 +276,17 @@ export default {
         },
         changeStatus(value) {
             axios
-                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/change-status', value)
+                .post('http://127.0.0.1:8000/api/admin/tieu-chi-kpi/change-status', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadTieuChiKPI();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {

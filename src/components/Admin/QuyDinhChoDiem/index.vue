@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="ms-1">
                                     <h6 class="mb-1 text-white">Bạn chắc chắc xóa quy định cho điểm <b>{{
-                                            delete_quy_dinh_cho_diem.ma_so }}</b> này chứ
+                                        delete_quy_dinh_cho_diem.ma_so }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi phục
                                         khi ấn xác nhận
@@ -233,7 +233,12 @@ export default {
     methods: {
         xuatExcel() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/xuat-excel', { responseType: 'blob' })
+                .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/xuat-excel', {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
@@ -245,19 +250,32 @@ export default {
         },
         loadQuyDinhChoDiem() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data')
+                .get('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_quy_dinh_cho_diem = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         createQuyDinhChoDiem() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/create', this.create_quy_dinh_cho_diem)
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/create', this.create_quy_dinh_cho_diem, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadQuyDinhChoDiem();
                         this.create_quy_dinh_cho_diem = {};
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -269,12 +287,18 @@ export default {
         },
         capNhatQuyDinhChoDiem() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/update', this.edit_quy_dinh_cho_diem)
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/update', this.edit_quy_dinh_cho_diem, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadQuyDinhChoDiem();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -286,12 +310,18 @@ export default {
         },
         xoaQuyDinhChoDiem() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/delete', this.delete_quy_dinh_cho_diem)
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/delete', this.delete_quy_dinh_cho_diem, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadQuyDinhChoDiem();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -303,11 +333,17 @@ export default {
         },
         changeStatus(value) {
             axios
-                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/change-status', value)
+                .post('http://127.0.0.1:8000/api/admin/quy-dinh-cho-diem/change-status', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadQuyDinhChoDiem();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {

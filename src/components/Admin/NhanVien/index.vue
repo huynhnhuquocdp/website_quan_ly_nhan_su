@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="ms-1">
                                     <h6 class="mb-1 text-white">Bạn chắc chắc xóa nhân viên <b>{{
-                                            delete_nhan_vien.ho_va_ten }}</b> này chứ
+                                        delete_nhan_vien.ho_va_ten }}</b> này chứ
                                         !!!</h6>
                                     <div class="text-white text-nowrap"><b>LƯU Ý !!!</b> Điều này không thể khôi
                                         phục
@@ -206,7 +206,8 @@
                                             {{ v.ten_chuc_nang }}
                                         </td>
                                         <td class="text-center align-middle">
-                                            <button v-if="v.is_phan_quyen == 1" class="btn btn-primary">Đã Phân
+                                            <button v-if="v.is_phan_quyen == 1" v-on:click="removeQuyen(v)"
+                                                class="btn btn-primary">Đã Phân
                                                 Quyền</button>
                                             <button v-else v-on:click="setQuyen(v)" class="btn btn-danger">Chưa Phân
                                                 Quyền</button>
@@ -357,14 +358,43 @@ export default {
         this.loadHopDong();
     },
     methods: {
-        setQuyen(value) {
+        removeQuyen(value) {
             value.id_nhan_vien = this.phan_quyen_nhan_vien.id
             axios
-                .post('http://127.0.0.1:8000/api/admin/phan-quyen/create', value)
+                .post('http://127.0.0.1:8000/api/admin/phan-quyen/delete', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadChucNang(this.phan_quyen_nhan_vien);
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
+                })
+                .catch((res) => {
+                    const errors = Object.values(res.response.data.errors);
+                    errors.forEach((v) => {
+                        this.$toast.error(v[0]);
+                    });
+                });
+        },
+        setQuyen(value) {
+            value.id_nhan_vien = this.phan_quyen_nhan_vien.id
+            axios
+                .post('http://127.0.0.1:8000/api/admin/phan-quyen/create', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadChucNang(this.phan_quyen_nhan_vien);
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -377,14 +407,26 @@ export default {
         loadChucNang(value) {
             this.phan_quyen_nhan_vien = value;
             axios
-                .post('http://127.0.0.1:8000/api/admin/chuc-nang/data', this.phan_quyen_nhan_vien)
+                .post('http://127.0.0.1:8000/api/admin/chuc-nang/data', this.phan_quyen_nhan_vien, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
-                    this.list_chuc_nang = res.data.data;
+                    this.list_chuc_nang = res.data.data
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         xuatExcel() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/nhan-vien/xuat-excel', { responseType: 'blob' })
+                .get('http://127.0.0.1:8000/api/admin/nhan-vien/xuat-excel', {
+                    responseType: 'blob',
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     const url = window.URL.createObjectURL(new Blob([res.data]));
                     const link = document.createElement('a');
@@ -403,11 +445,17 @@ export default {
         },
         taoHopDong() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/create', this.create_hop_dong)
+                .post('http://127.0.0.1:8000/api/admin/chi-tiet-hop-dong/create', this.create_hop_dong, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadNhanVien();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -419,9 +467,16 @@ export default {
         },
         TimKiemBE() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/nhan-vien/tim-kiem', this.search)
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/tim-kiem', this.search, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_nhan_vien = res.data.data
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -432,40 +487,71 @@ export default {
         },
         loadHopDong() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/data-open')
+                .get('http://127.0.0.1:8000/api/admin/loai-hop-dong/data-open', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_hop_dong = res.data.data;
                 })
         },
         loadNhanVien() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/nhan-vien/data')
+                .get('http://127.0.0.1:8000/api/admin/nhan-vien/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_nhan_vien = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         loadChucVu() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/chuc-vu/data-open')
+                .get('http://127.0.0.1:8000/api/admin/chuc-vu/data-open', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     this.list_chuc_vu = res.data.data;
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         loadPhongBan() {
             axios
-                .get('http://127.0.0.1:8000/api/admin/phong-ban/data-open')
+                .get('http://127.0.0.1:8000/api/admin/phong-ban/data-open', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
-                    this.list_phong_ban = res.data.data;
+                    this.list_phong_ban = res.data.data
+                    if (res.data.status == 0) {
+                        this.$toast.error(res.data.message);
+                    }
                 })
         },
         createNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/nhan-vien/create', this.create_nhan_vien)
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/create', this.create_nhan_vien, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadNhanVien();
                         this.create_nhan_vien = {};
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -477,12 +563,18 @@ export default {
         },
         capNhatNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/nhan-vien/update', this.edit_nhan_vien)
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/update', this.edit_nhan_vien, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadNhanVien();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -494,12 +586,18 @@ export default {
         },
         xoaNhanVien() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/nhan-vien/delete', this.delete_nhan_vien)
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/delete', this.delete_nhan_vien, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadNhanVien();
-                    };
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 })
                 .catch((res) => {
                     const errors = Object.values(res.response.data.errors);
@@ -511,11 +609,17 @@ export default {
         },
         changeStatus(value) {
             axios
-                .post('http://127.0.0.1:8000/api/admin/nhan-vien/change-status', value)
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/change-status', value, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         this.loadNhanVien();
+                    } else {
+                        this.$toast.error(res.data.message);
                     }
                 })
                 .catch((res) => {
