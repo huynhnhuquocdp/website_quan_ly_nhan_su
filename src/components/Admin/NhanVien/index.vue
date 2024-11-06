@@ -302,8 +302,10 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-lg-12">
-                                <textarea v-model="create_hop_dong.noi_dung" class="form-control" cols="30"
-                                    rows="10"></textarea>
+                                <!-- <textarea v-model="create_hop_dong.noi_dung" class="form-control" cols="30"
+                                    rows="10"></textarea> -->
+                                <ckeditor v-model="create_hop_dong.noi_dung" :editor="editor"
+                                    :config="editorConfig" />
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -334,7 +336,13 @@
 </template>
 <script>
 import axios from 'axios';
+import { ClassicEditor, Bold, Essentials, Italic, Mention, Paragraph, Undo, Heading, BlockQuote, Font, Link, List, Alignment } from 'ckeditor5';
+import { Ckeditor } from '@ckeditor/ckeditor5-vue';
+import 'ckeditor5/ckeditor5.css';
 export default {
+    components: {
+        Ckeditor
+    },
     data() {
         return {
             create_nhan_vien: {},
@@ -348,6 +356,23 @@ export default {
             create_hop_dong: {},
             phan_quyen_nhan_vien: {},
             list_chuc_nang: [],
+            editor: ClassicEditor,
+            editorConfig: {
+                plugins: [Bold, Essentials, Italic, Mention, Paragraph, Undo, Heading, BlockQuote, Font, Link, List, Alignment],
+                toolbar: ['heading',
+                    '|', 'undo', 'redo', '|', 'bold', 'italic',
+                    'fontSize',
+                    'fontFamily',
+                    'fontColor',
+                    '|',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    'blockQuote',
+                    '|',
+                    'Alignment'
+                ],
+            }
         }
 
     },

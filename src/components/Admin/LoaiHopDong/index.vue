@@ -9,8 +9,9 @@
                     <label class="form-lable">Tên Hợp Đồng</label>
                     <input v-model="create_loai_hop_dong.ten_hop_dong" class="form-control mt-1" type="text">
                     <label class="form-lable mt-2">Nội Dung</label>
-                    <textarea v-model="create_loai_hop_dong.noi_dung" class="form-control" cols="30"
-                        rows="10"></textarea>
+                    <!-- <textarea v-model="create_loai_hop_dong.noi_dung" class="form-control" cols="30"
+                        rows="10"></textarea> -->
+                    <ckeditor v-model="create_loai_hop_dong.noi_dung" :editor="editor" :config="editorConfig" />
                     <label class="form-lable mt-2"> Tình Trạng</label>
                     <select v-model="create_loai_hop_dong.tinh_trang" class="form-control">
                         <option value="1">Hiển Thị</option>
@@ -127,8 +128,10 @@
                                 <label class="form-lable">Tên Hợp Đồng</label>
                                 <input v-model="edit_loai_hop_dong.ten_hop_dong" class="form-control mt-1" type="text">
                                 <label class="form-lable mt-2">Nội Dung</label>
-                                <textarea v-model="edit_loai_hop_dong.noi_dung" class="form-control" cols="30"
-                                    rows="10"></textarea>
+                                <!-- <textarea v-model="edit_loai_hop_dong.noi_dung" class="form-control" cols="30"
+                                    rows="10"></textarea> -->
+                                <ckeditor v-model="edit_loai_hop_dong.noi_dung" :editor="editor"
+                                    :config="editorConfig" />
                                 <label class="form-lable mt-2"> Tình Trạng</label>
                                 <select v-model="edit_loai_hop_dong.tinh_trang" class="form-control">
                                     <option value="1">Hiển Thị</option>
@@ -169,7 +172,13 @@
 </template>
 <script>
 import axios from 'axios';
+import { ClassicEditor, Bold, Essentials, Italic, Mention, Paragraph, Undo, Heading, BlockQuote, Font, Link, List, Alignment } from 'ckeditor5';
+import { Ckeditor } from '@ckeditor/ckeditor5-vue';
+import 'ckeditor5/ckeditor5.css';
 export default {
+    components: {
+        Ckeditor
+    },
     data() {
         return {
             create_loai_hop_dong: {},
@@ -177,6 +186,23 @@ export default {
             delete_loai_hop_dong: {},
             list_loai_hop_dong: [],
             noi_dung_hop_dong: '',
+            editor: ClassicEditor,
+            editorConfig: {
+                plugins: [Bold, Essentials, Italic, Mention, Paragraph, Undo, Heading, BlockQuote, Font, Link, List, Alignment],
+                toolbar: ['heading',
+                    '|', 'undo', 'redo', '|', 'bold', 'italic',
+                    'fontSize',
+                    'fontFamily',
+                    'fontColor',
+                    '|',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    'blockQuote',
+                    '|',
+                    'Alignment'
+                ],
+            }
         }
 
     },
@@ -312,4 +338,8 @@ export default {
     }
 }
 </script>
-<style></style>
+<style>
+.ck-editor__editable {
+    min-height: 300px;
+}
+</style>

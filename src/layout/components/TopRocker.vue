@@ -399,16 +399,36 @@ export default {
 	methods: {
 		dangXuat() {
 			axios
-                .get("http://127.0.0.1:8000/api/admin/dang-xuat")
+                .get("http://127.0.0.1:8000/api/admin/dang-xuat", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
-                    
+                    if (res.data.status) {
+						this.$toast.success(res.data.message);
+						localStorage.setItem('tk_nhan_vien', '');
+						this.$router.push('/admin/dang-nhap');
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 });
         },
         dangXuatAll() {
 			axios
-                .get("http://127.0.0.1:8000/api/admin/dang-xuat-all")
+                .get("http://127.0.0.1:8000/api/admin/dang-xuat-all", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
                 .then((res) => {
-                    
+                    if (res.data.status) {
+						this.$toast.success(res.data.message);
+						localStorage.setItem('tk_nhan_vien', '');
+						this.$router.push('/admin/dang-nhap');
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
                 });
         }
 	},

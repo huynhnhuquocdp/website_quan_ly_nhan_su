@@ -135,6 +135,12 @@
 									class="bx bx-right-arrow-alt"></i>Lương</a>
 							</router-link>
 						</li>
+						<li> 
+							<router-link to="/admin/luong-theo-thang">
+								<a class="dropdown-item" href="/admin/luong-theo-thang"><i
+									class="bx bx-right-arrow-alt"></i>Lương Theo Tháng</a>
+							</router-link>
+						</li>
 					</ul>
 				</li>
 				<li class="nav-item dropdown">

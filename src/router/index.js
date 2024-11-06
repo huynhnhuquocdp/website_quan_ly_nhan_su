@@ -63,6 +63,11 @@ const routes = [
     beforeEnter: checkLogin,
   },
   {
+    path: "/admin/luong-theo-thang",
+    component: () => import("../components/Admin/LuongTheoThang/index.vue"),
+    beforeEnter: checkLogin,
+  },
+  {
     path: "/admin/kpi-nhan-vien",
     component: () => import("../components/Admin/KPINhanVien/index.vue"),
     beforeEnter: checkLogin,
