@@ -129,10 +129,10 @@
                 </div>
             </div>
         </div>
-        <div class="chat-header d-flex align-items-center">
+        <!-- <div class="chat-header d-flex align-items-center">
             <div class="chat-toggle-btn"><i class='bx bx-menu-alt-left'></i>
             </div>
-        </div>
+        </div> -->
         <div class="chat-content" id="chatContent">
             <div class="chat-content-leftside">
                 <div class="d-flex">
@@ -144,14 +144,16 @@
                     </div>
                 </div>
             </div>
+            <template v-for="(v, k) in list" :key="k">
                 <div class="chat-content-rightside">
                     <div class="d-flex ms-auto">
                         <div class="flex-grow-1 me-2">
                             <p class="mb-0 chat-time text-end">you, 2:37 PM</p>
-                            <p class="chat-right-msg">Hi</p>
+                            <p class="chat-right-msg">{{ v.title }}</p>
                         </div>
                     </div>
                 </div>
+            </template>
         </div>
         <div class="chat-footer d-flex align-items-center">
             <div class="flex-grow-1 pe-2">
@@ -169,19 +171,33 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+
 export default {
     data() {
         return {
-
+            list: [
+                { title: 1 },
+                { title: 2 },
+            ],
         }
     },
     mounted() {
         new PerfectScrollbar(document.querySelector('.chat-list'));
         new PerfectScrollbar(document.querySelector('.chat-content'));
+        setInterval(() => {
+            this.list.push({
+                title: (Math.random() + 1).toString(36).substring(7)
+            });
+            this.$nextTick(() => {
+                this.scrollToBottom();
+            });
+        }, 5000);
     },
     methods: {
-
+        scrollToBottom() {
+            const chatContent = document.getElementById('chatContent');
+            chatContent.scrollTop = chatContent.scrollHeight;
+        },
     },  
 }
 </script>
