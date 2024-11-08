@@ -37,6 +37,15 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
+                                            <label class="form-label">Recapcha</label>
+                                            <div class="input-group">
+                                                <div class="g-recaptcha"
+                                                    data-sitekey="6LfO_nYqAAAAACfwimLB9ZgYcRODlMaQjsHq83lR"
+                                                    ref="recaptcha">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
                                             <div class="d-grid">
                                                 <button v-on:click="login()" type="button" class="btn btn-primary"><i
                                                         class="fa-solid fa-lock-open"></i>Đăng
@@ -62,20 +71,30 @@ export default {
 
         }
     },
+    mounted() {
+
+    },
     methods: {
         login() {
-            axios
-                .post("http://127.0.0.1:8000/api/admin/dang-nhap", this.tk)
-                .then((res) => {
-                    if (res.data.status) {
-                        this.$toast.success(res.data.message);
-                        localStorage.setItem('tk_nhan_vien', res.data.token);
-                        this.$router.push('/admin/nhan-vien');
-                    } else {
-                        this.$toast.error(res.data.message);
-                    }
-                });
+            var code = grecaptcha.getResponse();
+            if (!code) {
+                this.$toast.error('Bạn chưa chọn mã capcha');
+            } else {
+                this.tk.ma_capcha = code;
+                axios
+                    .post("http://127.0.0.1:8000/api/admin/dang-nhap", this.tk)
+                    .then((res) => {
+                        if (res.data.status) {
+                            this.$toast.success(res.data.message);
+                            localStorage.setItem('tk_nhan_vien', res.data.token);
+                            this.$router.push('/admin/nhan-vien');
+                        } else {
+                            this.$toast.error(res.data.message);
+                        }
+                    });
+            }
         }
+
     }
 }
 </script>
