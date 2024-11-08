@@ -177,6 +177,15 @@
 						</li>
 					</ul>
 				</li>
+				<li class="nav-item">
+					<router-link to="/admin/chat">
+						<a class="nav-link" href="/admin/chat">
+							<div class="parent-icon"><i class="fa-solid fa-comments"></i>
+							</div>
+							<div class="menu-title">Chat</div>
+						</a>
+					</router-link>
+				</li>
 			</ul>
 		</nav>
 	</div>

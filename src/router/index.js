@@ -101,6 +101,12 @@ const routes = [
       import("../components/Admin/ThongKe/ThongKeDiemThuong/index.vue"),
     beforeEnter: checkLogin,
   },
+  {
+    path: "/admin/chat",
+    component: () =>
+      import("../components/Admin/Chat/index.vue"),
+    beforeEnter: checkLogin,
+  },
 ];
 
 const router = createRouter({

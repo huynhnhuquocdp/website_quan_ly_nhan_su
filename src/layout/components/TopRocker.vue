@@ -71,7 +71,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown dropdown-large">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
+                        <a v-on:click="loadThongBao()" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span
                                 class="alert-count">7</span>
                             <i class='bx bx-bell'></i>
@@ -87,14 +87,14 @@
                                 <template v-for="(value, index) in list" :key="index">
                                     <a class="dropdown-item" href="javascript:;">
                                         <div class="d-flex align-items-center">
-                                            <div :class="'notify bg-light-primary ' + value.color_thong_bao"><i
+                                            <div :class="'notify bg-light-primary ' + value.color_thong_bao" style="width: 50px; height:  50px;"><i
                                                     :class="value.icon_thong_bao"></i>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h6 class="msg-name">{{ value.tieu_de }}<span
+                                                <h6 class="msg-name text-wrap">{{ value.tieu_de }}<span
                                                         class="msg-time float-end">14 Sec
                                                         ago</span></h6>
-                                                <p class="msg-info">{{ value.noi_dung }}</p>
+                                                <p class="msg-info text-wrap">{{ value.noi_dung }}</p>
                                             </div>
                                         </div>
                                     </a>
